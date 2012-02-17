@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<table>
+  <caption><%= @questionnaire.title %></caption>
+  <thead>
+    <tr>
+      <th class="rounded-q1">Attribut</th>
+      <th  class="rounded-q2">Réponse</th>
+    </tr>
+  </thead>
+  <tbody>
+<% CSV.parse(@questionnaire.content, :headers => true, :col_sep => ",") do |row| %>    
+  <% row.to_hash.each do |key, value| %> 
+    <tr class="<%= cycle("even", "odd") %>">
+      <td><b><%= key %></b></td><td><%= value %></td>
+    </tr>
+  <% end %>
+<% end %>
+  </tbody>
+  
+  <tfoot>
+    <tr>
+      <td class="rounded-q3"></td>
+      <td class="rounded-q4"></td>
+    </tr>
+  </tfoot>
+</table>
+
+
+<%= link_to 'Edit', edit_questionnaire_path(@questionnaire) %>&nbsp;
+<%= link_to 'Back', questionnaires_path %>
+

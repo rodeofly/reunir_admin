@@ -1,0 +1,6 @@
+Choississez le questionnaire que vous souhaitez ajouter à ce profil.
+<% categories.each do |category| %>
+  <a href="http://localhost/limesurvey/index.php?&sid=<%= category.questionnaire_id %>&<%= category.questionnaire_id %>X<%= category.fusion_group_id %>X<%= category.fusion_question_id %>=<%= profil.id %>/<%= category.id %>"><%= category.name %></a>
+<% end %>
+<br/>
+

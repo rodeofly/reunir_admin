@@ -1,0 +1,23 @@
+<h1>Listing groupe_enfants</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @groupe_enfants.each do |groupe_enfant| %>
+  <tr>
+    <td><%= groupe_enfant.name %></td>
+    <td><%= link_to 'Show', groupe_enfant %></td>
+    <td><%= link_to 'Edit', edit_groupe_enfant_path(groupe_enfant) %></td>
+    <td><%= link_to 'Destroy', groupe_enfant, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Groupe enfant', new_groupe_enfant_path %>

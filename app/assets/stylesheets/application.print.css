@@ -1,0 +1,53 @@
+@media print {
+  body {
+  background-color: #4B7399;
+  font-family: Verdana, Helvetica, Arial;
+  font-size: 14px;
+  width=100%
+  }
+  .rounded-q1 {
+    border-top-left-radius: 50px;
+  }
+  .rounded-q2 {
+    border-top-right-radius: 50px;
+  }
+  .rounded-q3 {
+    border-bottom-left-radius: 50px;
+  }
+  .rounded-q4 {
+    border-bottom-right-radius: 50px;
+  }
+  
+  table tfoot td {
+    background-color:#B9C9FE;
+  }
+  
+  table {
+    border-collapse: collapse;
+    
+  }
+  table tr {
+    border : solid black 1px;
+    
+  }
+  table thead th {
+    border :none;
+    color : #039;
+    padding:5px;
+    margin:0;
+    background-color:#B9C9FE;
+  }
+  table td {
+    color : #669;
+    padding:5px;
+    margin:0;
+    border : 0px;
+  }
+  tr.even {background-color:#E8EDFF;-webkit-print-color-adjust:exact;}
+  tr.odd {background-color:#fff;}
+  
+  a {
+    display : none;
+  }
+  
+}

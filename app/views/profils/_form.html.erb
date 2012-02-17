@@ -1,0 +1,26 @@
+<%= form_for(@profil) do |f| %>
+  <% if @profil.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profil.errors.count, "error") %> prohibited this profil from being saved:</h2>
+
+      <ul>
+      <% @profil.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  
+  <% f.fields_for :address do |address| %>
+    <%= render :partial => 'shared/address', :locals => {:f => address} %>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

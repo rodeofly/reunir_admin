@@ -1,0 +1,7 @@
+%b
+  = questionnaire.title
+
+- CSV.parse(questionnaire.content, :headers => true, :col_sep => ",") do |row|    
+  - row.to_hash.each do |key, value| 
+    = succeed value do
+      %b= key.gsub('_',' ')  + " : "

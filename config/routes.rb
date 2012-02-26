@@ -1,4 +1,12 @@
 ReunirAdmin::Application.routes.draw do
+  match "/csv-to-json/id/:id/sid/:sid" => "CsvToJson#show"
+  
+  resources :filiations
+
+  resources :enfants
+
+  resources :parents
+
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   resources :zips

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :role
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :role
   
   #validates_presence_of :name
   #validates_presence_of :role
@@ -15,8 +15,14 @@ class User < ActiveRecord::Base
     %w[admin educateur]
   end
 
- def role?(role)
-   self.role == role.to_s
- end
+  def role?(role)
+    self.role == role.to_s
+  end
+ 
+  def name
+    user = ""
+    user += !self.first_name.blank? ? self.first_name + " ": ""
+    user += !self.last_name.blank? ? self.last_name : ""
+  end
   
 end

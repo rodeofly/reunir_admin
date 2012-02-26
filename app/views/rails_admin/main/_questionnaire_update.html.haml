@@ -1,0 +1,9 @@
+- text = ""
+- CSV.parse(form.object.content, :headers => true, :col_sep => ",") do |row|    
+  - row.to_hash.each do |key, value| 
+    - text << key
+    - text << " => "
+    - text << value
+    - text <<  "\n"
+= form.fields_for @object.content do |f|
+  %textarea{:name => "questionnaire[content]" ,:cols => 75, :rows => 20}= text

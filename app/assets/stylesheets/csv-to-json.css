@@ -1,0 +1,30 @@
+body{
+  font-family: verdana, arial, sans-serif;
+  text-align: left;
+  background-color: #5670A1;
+  margin: 0;
+  font-size: 9pt;
+}
+.popUp
+{
+	text-align: center;
+	margin:0px;
+	padding: 0px;
+	border: 2px solid black;
+	background: white;
+	text-decoration:bold;
+}
+
+.iframes
+{
+  margin:0px;
+  border:none;
+  height:100%;
+  width:100%;
+	
+}
+.ta
+{
+    display:none;
+}
+

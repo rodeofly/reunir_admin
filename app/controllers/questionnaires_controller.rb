@@ -1,6 +1,6 @@
 # encoding: UTF-8
-
 class QuestionnairesController < ApplicationController
+   
   # GET /questionnaires
   # GET /questionnaires.json
   def index
@@ -39,25 +39,26 @@ class QuestionnairesController < ApplicationController
     @questionnaire = Questionnaire.find(params[:id])
   end
 
+  
+
   # POST /questionnaires
   # POST /questionnaires.json
   def create
-
-    @questionnaire = Questionnaire.new(params[:questionnaire])
-    #Test de la présence de notre JSON
-    if params[:_json]
-      json = params[:_json][0]
+    if !params[:_json].blank?
+      params[:_json] = JSON.parse params[:_json] if params[:_json].is_a? String
+  
       #Routine de transformation en CSV
+      json = params[:_json][0]
       headers = []
       values = []
       csv_string = CSV.generate do |csv|
         json.each do |key, value|
           if (!key.blank? && !value.blank? && value!="Autre")
-            #Exclusion de certain champs Limesurvey
+           #Exclusion de certain champs Limesurvey
             if !['id','Complété','Dernière page vue','Langue de départ', 'FusionQuestion', 'Code'].include?(key)
               #Nettoyage des champs du type "champs [other]"
               if key.include?(" [other]")
-                puts "azertyuiopsdfghjkldcvbn,;"
+                #puts "test [other]"
                 key = key.split(" [other]")[0]               
               end
               headers << key
@@ -68,16 +69,14 @@ class QuestionnairesController < ApplicationController
         csv << headers
         csv << values
       end
-      @questionnaire.content = csv_string
       
-      profil_id = json[:FusionQuestion].split("/")[0]
-      category_id = json[:FusionQuestion].split("/")[1]
-      puts "ahem"
-      puts profil_id
-      puts category_id
+      @questionnaire = Questionnaire.new(params[:questionnaire])
+      @questionnaire.content = csv_string
+      profil_id, category_id = json['FusionQuestion'].to_s.split("/")
       @questionnaire.profil = Profil.find(id=profil_id)
       @questionnaire.category = Category.find(id=category_id)
     end
+      
     respond_to do |format|
       if @questionnaire.save
         format.html { redirect_to @questionnaire, notice: 'Questionnaire was successfully created.' }
@@ -87,6 +86,7 @@ class QuestionnairesController < ApplicationController
         format.json { render json: @questionnaire.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PUT /questionnaires/1

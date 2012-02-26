@@ -1,0 +1,66 @@
+@media print {
+  body.rails_admin {
+    padding-top: 0px;
+  }
+  .fieldset
+  {
+    border : solid black 2px;
+    margin : 5px;
+    padding :5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+  h1 {
+    font-size: 15px;
+  }
+  .label {
+    margin : 0px;  
+    padding : 0px 0px 0px 5px;
+    color : black;
+    text-shadow : none; 
+  }
+  dl, dt, dd {border : 0; margin : 0px; padding : 0px;}
+  pre {
+    padding : 0px;
+    margin : px;
+    padding-left: 20px;
+    border : 0;
+  }
+  pre.prettyprint {
+    margin : 0px;
+    color : black;
+  }
+  
+  dt {
+    padding : 0px 10px 0px 5px !important;
+    float : left;
+    color : black;
+  }  
+  dt:after {
+    content: " :";
+  }
+  
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+   .navbar-fixed-top {
+    display: none;
+  }
+  
+  .breadcrumb {
+    display: none;
+  }
+  .nav-tabs {
+    display: none;
+  }
+  .row-fluid .span3 {
+  display: none;
+  }
+  
+  footer {
+    display: none;
+  }
+}

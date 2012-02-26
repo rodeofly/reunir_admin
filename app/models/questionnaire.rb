@@ -1,9 +1,37 @@
+# encoding: UTF-8
 class Questionnaire < ActiveRecord::Base
   belongs_to :category
   belongs_to :profil
-  #validates_presence_of :category
+  #validates_presence_of :category  
+  before_update :after_edit_to_csv
   
- 
+  def after_edit_to_csv
+    #puts "///questionnaire.rb#after_edit_to_csv//////////////////////"
+    text = self.content
+    if text
+      #Routine de transformation en CSV
+      headers = []
+      values = []
+      csv_string = CSV.generate do |csv|
+        text.each_line do |line|
+          key, value = line.gsub("\r\n","").split(" => ")        
+          if (!key.blank? && !value.blank?)   
+            headers << key
+            values << value
+          else
+             self.content = self.content_was
+             errors.add(:content, ": en mode édition, chaque ligne doit contenir =>")
+             return false
+          end
+        end
+        #Sortie de boucle, insertion des deux lignes
+        csv << headers
+        csv << values
+      end
+      self.content = csv_string
+    end
+  end
+  
   def csvhash
      csv_hash = {}
      if !self.content.blank?

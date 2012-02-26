@@ -11,20 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120217091844) do
+ActiveRecord::Schema.define(:version => 20120225044506) do
 
   create_table "addresses", :force => true do |t|
+    t.string   "address_type"
     t.string   "line1"
     t.string   "line2"
     t.integer  "zip_id"
-    t.string   "state"
+    t.string   "country"
     t.integer  "addressable_id"
     t.string   "addressable_type"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
-
-  add_index "addresses", ["addressable_type", "addressable_id"], :name => "index_addresses_on_addressable_type_and_addressable_id", :unique => true
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -33,6 +32,24 @@ ActiveRecord::Schema.define(:version => 20120217091844) do
     t.integer  "fusion_question_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "comments", :force => true do |t|
+    t.string   "comment_type"
+    t.text     "comment"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "emails", :force => true do |t|
+    t.string   "email_type"
+    t.string   "email"
+    t.integer  "emailable_id"
+    t.string   "emailable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "groupe_enfants", :force => true do |t|
@@ -48,23 +65,41 @@ ActiveRecord::Schema.define(:version => 20120217091844) do
   end
 
   create_table "medecins", :force => true do |t|
-    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "specialty"
-    t.string   "email"
     t.boolean  "organization_member"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
 
+  create_table "phones", :force => true do |t|
+    t.string   "phone_type"
+    t.string   "number"
+    t.integer  "phonable_id"
+    t.string   "phonable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "profils", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "gender"
+    t.date     "birthdate"
+    t.string   "classroom"
+    t.integer  "school_id"
     t.integer  "medecin_id"
     t.integer  "user_id"
     t.integer  "groupe_enfant_id"
     t.integer  "groupe_parent_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "profils_tuteurs", :id => false, :force => true do |t|
+    t.integer "profil_id"
+    t.integer "tuteur_id"
   end
 
   create_table "questionnaires", :force => true do |t|
@@ -88,8 +123,27 @@ ActiveRecord::Schema.define(:version => 20120217091844) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
-  create_table "users", :force => true do |t|
+  create_table "schools", :force => true do |t|
+    t.string   "schooltype"
     t.string   "name"
+    t.integer  "zip_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tuteurs", :force => true do |t|
+    t.string   "tuteur_type"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "groupe_parent_id"
+    t.string   "profession"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "role"
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false

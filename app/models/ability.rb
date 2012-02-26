@@ -14,6 +14,7 @@ class Ability
         can :update, User, :id => user.id #employee can update own user details
       elsif user.role? :admin
         can :manage, :all
+        can :pdf
       end
     end
     # Define abilities for the passed in user here. For example:

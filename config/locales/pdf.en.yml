@@ -1,0 +1,11 @@
+
+en:
+  admin:
+    actions:
+      pdf:
+        title: "Pdf"
+        menu: "Download (PDF)"
+        breadcrumb: "Pdf"
+        link: "Pdf"
+        bulk_link: "Download (PDF)"
+        done: "Pdfed"

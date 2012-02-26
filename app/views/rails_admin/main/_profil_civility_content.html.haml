@@ -1,0 +1,37 @@
+- if !profil.name.blank?
+  = succeed profil.name do
+    %b= "Nom : "
+- if !profil.birthdate.blank?
+  = succeed I18n.localize(profil.birthdate, :formats => :long) do
+    %b= "Né(e) le :"
+- if !profil.gender.blank?
+  = succeed profil.gender do
+    %b= "De sexe : "
+- if !profil.responsable1.blank?
+  = succeed profil.responsable1 do
+    %b= "Mère : "
+- if !profil.responsable2.blank?
+  = succeed profil.responsable2 do
+    %b= "Père : "
+- if !profil.responsable3.blank?
+  = succeed profil.responsable2 do
+    %b= "Autre responsable légal : "
+- if !profil.school.blank?
+  = succeed profil.school.name do
+    %b= "École fréquentée : "
+- if !profil.classroom.blank?
+  = succeed profil.classroom do
+    %b= "Classe : "
+- if !profil.user.blank?
+  = succeed profil.user.name do
+    %b= "Éducateur en charge : "
+- if !profil.medecin.blank?
+  = succeed profil.medecin.title do
+    %b= "Médecin : "
+- if !profil.groupe_enfant.blank?
+  = succeed profil.groupe_enfant.name do
+    %b= "Groupe de l'enfant : "
+- if !profil.groupe_parent.blank?
+  = succeed profil.groupe_parent.name do
+    %b= "Groupe des parents : "
+

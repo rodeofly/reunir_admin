@@ -31,6 +31,7 @@ gem "nifty-generators", :group => :development
 gem "cancan"
 gem 'paper_trail', '~> 2'
 gem "devise"
+gem "prawn"
 #bundle exec rails generate paper_trail:install
 
 #gem "rails_admin_import", :git => "git://github.com/stephskardal/demo.git"

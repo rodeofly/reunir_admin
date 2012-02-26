@@ -3,13 +3,19 @@ fr:
     sign_up: "Siaagn up"
     sign_in: "Sigaan in"
   activerecord:
-    models:
+    models:   
       address:
         one: "adresse"
         other: "adresses"
       category:
-        one: "catégorie"
-        other: "catégories"
+        one: "type de questionnaire"
+        other: "types de questionnaire"
+      comment:
+        one: "commentaire"
+        other: "commentaires"
+      email:
+        one: "email"
+        other: "emails"
       groupe_enfant:
         one: "groupe d'enfant"
         other: "groupes des enfants"
@@ -19,57 +25,105 @@ fr:
       medecin:
         one: "médecin"
         other: "médecins"
+      phone:
+        one:  "téléphone"
+        other: "téléphones"
       profil:
-        one: enfant
-        other: enfants
+        one: patient
+        other: patients
       questionnaire:
-        one: "questionnaire"
-        other: "questionnaires"
+        one: "questionnaire rempli"
+        other: "questionnaires remplis"
+      school:
+        one: "école"
+        other: "écoles"
       user:
         one: éducateur
         other: éducateurs
+      tuteur:
+        one: "parent"
+        other: "parents"
       zip:
         one: "code postal"
         other: "codes postaux"
     attributes:
       address:
-          line1: "Ligne 1"
-          line2: "Ligne 2"
-          zip: "Code Postal"
-          state: "Pays"
-          addressable: "Personne"
-      user:
-        name: "Nom"
-        email: "Adresse Email"
-        address: "Adresse"
-        password: "Mot de passe"
-        remember_me: "Se souvenir de moi"
-        role: "Rôle"
+        address_type: "Type"
+        line1: "Ligne 1"
+        line2: "Ligne 2"
+        zip: "Code Postal"
+        country: "Pays"
       category:
         name: "Nom"
+      comment:
+        comment_type: "Type"
+        comment: "Commentaire"
+      email:
+        email_type : "Type"
       groupe_enfant:
         name: "Nom"
       groupe_parent:
         name: "Nom"
       medecin:
         title: "Titre"
+        first_name: "Prénom"
+        last_name: "Nom"
         name: "Nom"
         specialty: "Spécialité"
         organization_member: "Membre de l'association"
         address: "Adresse"
         org_member: "Membre de l'association"
+        profils: "Enfants"
         profils_count: "Patients en charge"
-      profil:
-        name: "Nom"
-        user: "Éducateur"
+        email: "Email"
+        phone: "Téléphone"
         address: "Adresse"
-        groupe_enfant: "Groupe de l'enfant"
-        groupe_parent: "Groupe des parents"
+        comments: "Notes"
+      profil:
+        first_name: "Prénom"
+        last_name: "Nom"
+        gender: "Genre"
+        birthdate: "Date de naissance"
+        school: "École"
+        classroom: "Classe"
+        user: "Éducateur"
+        emails: "Emails"
+        phones: "Téléphones"
+        tuteurs: "Responsables légaux"
+        addresses: "Adresses"
+        groupe_enfant: "Groupe de l'enfant"     
         medecin: "Médecin"
+        comments: "Notes"
+      phone:
+        phone_type: "Type"
+        number: "Numéro"
       questionnaire:
         name: "Nom"
         category: "Catégorie"
         user: "Éducateurs"
+      school:
+        name: "Nom"
+        zip: "Code Postal"
+        schooltype: "Type"
+      tuteur:
+        tuteur_type: "Qualité"
+        first_name: "Prénom"
+        last_name: "Nom"
+        groupe_parent: "Groupe des parents"
+        emails: "Emails"
+        phones: "Téléphones"
+        addresses: "Adresses"
+        profils: "Enfants"
+        comments: "Notes"
+
+      user:
+        first_name: "Prénom"
+        last_name: "Nom"
+        email: "Adresse Email"
+        address: "Adresse"
+        password: "Mot de passe"
+        remember_me: "Se souvenir de moi"
+        role: "Rôle"
       zip:
         zipcode: "Code Postal"
         city: "Ville"
@@ -134,6 +188,10 @@ fr:
       item: "Objet"
       message: "Message"
     actions:
+      pdf:
+        title: "Export PDF"
+        breadcrumb: "PDF"
+        menu: "PDF"
       dashboard:
         title: "Administration"
         menu: "Administration"

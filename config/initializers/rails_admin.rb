@@ -94,11 +94,68 @@ RailsAdmin.config do |config|
   #   create do; end
   #   update do; end
   # end
+  # config/initilizers/rails_admin.rb
+  # config/initilizers/rails_admin.rb
+  
+  #RailsAdmin.config do |config|
+  #  config.actions do
+  #    # root actions
+  #   dashboard                     # mandatory
+  #    # collection actions 
+  #    index                         # mandatory
+  #    new
+  #    export
+  #    history_index
+  #   bulk_delete
+  #    # member actions
+  #    show
+  #    edit
+  #    delete
+  #    history_show
+  #    show_in_app
+  #    member :pdf, :base do 
+  #      controller do 
+  #        Proc.new do 
+  #          output = PdfReport.new 
+  #          send_data output.to_pdf(@object), :filename => "profil...@object.id}.pdf", :type => "application/pdf" 
+  #        end 
+  #      end 
+  #    end 
+  #  end
+  #end
+  
+  
+ 
+  
+  config.model Email do
+    navigation_label 'Autres'
+    object_label_method do
+      :email_type
+    end
+    configure :emailable do
+      visible false
+    end
+    list do
+      field :emailable do
+        visible true
+      end
+      field :email
+      field :email_type
+    end
+  end
+  
+  
+  
   config.model Address do
-    navigation_label 'Paramètres'
+    navigation_label 'Autres'
+    object_label_method do
+      :address_type
+    end
+    
     configure :addressable do
       visible false
     end
+
     list do
       field :addressable do
         visible true
@@ -108,16 +165,7 @@ RailsAdmin.config do |config|
       end
       field :zip
     end
-    show do
-      field :addressable do
-        :name
-      end
-      field :content do
-        pretty_value do
-          bindings[:view].render :partial => "address_content", :locals => {:addressable => bindings[:object]}
-        end
-      end
-    end
+    
   end
   
   config.model Category do
@@ -137,6 +185,13 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model Comment do
+    navigation_label 'Autres'
+    configure :commentable do
+      visible false
+    end
+  end
+  
   config.model GroupeEnfant do
     navigation_label 'Paramètres'
     list do
@@ -163,8 +218,174 @@ RailsAdmin.config do |config|
     end
   end
   
+  config.model Medecin do
+    navigation_label 'Ressources humaines'
+    list do
+      field :specialty
+      field :last_name
+      field :first_name  
+      field :organization_member
+      field :profils_count
+    end
+    edit do
+      group :edit_medecin_identity do
+        label "Informations de base"
+        field :last_name
+        field :first_name
+        field :specialty
+        field :organization_member
+      end
+      group :edit_medecin_information_complementaire do
+        label "Informations complémentaires"
+        field :email
+        field :phone
+        field :address
+        field :comments
+      end
+      group :edit_patients do
+        label "Patients en charge"
+        field :profils
+      end
+    end
+    
+    show do
+      group :show_medecin_information_de_base do
+        label "Informations de base"
+        field :name
+        field :org_member
+      end
+      group :show_medecin_information_complementaire do
+        label "Informations complémentaires"
+        field :email
+        field :phone
+        field :address
+        field :comments
+      end
+      group :show_medecin_patients do
+        label "Patient(s) en charge"
+        field :profils
+      end
+    end
+  end
+  
+  config.model Phone do
+    navigation_label 'Autres'
+    object_label_method do
+      :phone_type
+    end
+    configure :phonable do
+      visible false
+    end
+    list do
+      field :phonable do
+        visible true
+      end
+      field :number
+      field :phone_type
+    end
+  end
+  
+  config.model Profil do
+    navigation_label 'Ressources humaines'
+    weight -1 
+    edit do
+      group :edit_profil_identity do
+        label "Informations de base"
+        help "Fiche identité"
+        field :last_name
+        field :first_name
+        field :gender
+        field :birthdate
+      end
+      group :edit_profil_school do
+        active false
+        label "Établissement scolaire"
+        help "Informations concernant la scolarité" 
+        field :school
+        field :classroom
+      end
+      group :edit_profil_contact do
+        active false
+        label "Contact"
+        help "Moyens de contact"
+        field :emails
+        field :phones
+        field :addresses
+      end
+      group :edit_profil_encadrement do
+        active false
+        label "Encadrement"
+        help "Encadrants de l'enfant"
+        field :tuteurs
+        field :user
+        field :groupe_enfant
+        field :medecin
+      end
+      group :edit_profil_complement do
+        active false
+        label "Complément d'information"
+        help "Collecte d'info supplémentaire"
+        field :questionnaires
+        field :comments
+      end
+    end
+    list do
+      field :id
+      field :last_name
+      field :first_name
+      field :user
+      field :groupe_enfant
+      field :medecin
+      field :created_at
+    end
+    
+    show do
+      group :show_profil_identity do
+        label "Fiche d'identité"
+        help "information essentielles"
+        field :name
+        field :gender
+        field :birthdate
+      end
+      group :show_profil_ecole do
+        label "Renseignements scolaire"
+        help "Établissement fréquenté"
+        field :school
+        field :classroom
+      end
+      group :show_profil_contact do
+        label "Informations de contacts"
+        help "Différents moyens de communication"
+        field :emails_pp do
+          label "Emails"
+        end        
+        field :phones_pp do
+          label "Téléphones"
+        end        
+        field :addresses_pp do
+          label "Adresses"
+        end
+      end
+      group :show_profil_encadrement do
+        label "Encadrements"
+        help "Ressources relatives à l'enfant"
+        field :tuteurs
+        field :user
+        field :medecin
+        field :groupe_enfant
+        field :comments
+      end
+      group :show_profil_questionnaire do
+        label "Questionnaires"
+        help "Gestion des questionnaires."
+        field :questionnaires
+      end
+    end
+    
+  end
+  
   config.model Questionnaire do
-    navigation_label 'Paramètres'
+    navigation_label 'Autres'
     list do
       field :id
       field :category
@@ -179,147 +400,66 @@ RailsAdmin.config do |config|
         end
       end
     end
-    edit do
+    update do
       field :profil
       field :content do
-        partial "content_edit"
+        partial "questionnaire_update"
       end
     end
   end
   
-  config.model Medecin do
-    navigation_label 'Ressources humaines'
+  config.model School do
+    navigation_label 'Paramètres'
     list do
-      field :title
-      field :specialty
-      field :organization_member
-      field :profils_count
-    end
-    edit do
-      group :edit_information_de_base do
-        label "Informations de base"
-        field :name do
-          label "Dr. (Nom Prénom)"
-        end
-        field :specialty
-        field :organization_member
-      end
-      group :edit_information_complementaire do
-        label "Informations complémentaires"
-        field :email
-        field :address
-      end
-      group :edit_patients do
-        label "Patients en charge"
-        field :profils
-      end
-    end
-    
-    show do
-      group :show_information_de_base do
-        label "Informations de base"
-        field :title
-        field :specialty
-        field :org_member
-      end
-      group :show_information_complementaire do
-        label "Informations complémentaires"
-        field :email
-        field :address do
-          pretty_value do
-            bindings[:view].render :partial => "address_content", :locals => {:addressable => bindings[:object].address}
-          end
-        end
-      end
-      group :show_patients do
-        label "Patient(s) en charge"
-        field :profils
-      end
-    end
-    
-  end
-  
-  config.model Profil do
-    navigation_label 'Ressources humaines'
-    weight -1
-    edit do
-      group :edit_information_de_base do
-        label "Informations de base"
-        help "Veuillez remplir les informations suivantes..."
-        field :name
-        field :email
-        field :address
-      end
-      group :edit_information_complementaire do
-        label "Informations complémentaires"
-        help "Veuillez remplir les informations suivantes..."
-        field :user
-        field :groupe_enfant
-        field :groupe_parent
-        field :medecin
-      end
-      group :edit_information_questionnaire do
-        label "Questionnaires"
-        help "Gestion des questionnaires."
-        field :questionnaires
-      end
-    end
-    list do 
+      field :schooltype
       field :name
-      field :user
-      field :groupe_enfant
-      field :groupe_parent
-      field :medecin
-      field :nombre_de_questionnaires
+      field :zip
     end
-    show do 
-      group :show_information_de_base do
-        label "Informations de base"
-        help "Nom et adresse."
-        field :name
-        field :email
-        field :address do
-          pretty_value do
-            bindings[:view].render :partial => "address_content", :locals => {:addressable => bindings[:object].address}
-          end
-        end
-      end
-      group :show_information_questionnaire do
-        label "Questionnaires"
-        help "Gestion des questionnaires."
-        field :questionnaires
-        field :ajouter_un_questionnaire do
-          pretty_value do
-              @categories = Category.find(:all)
-              bindings[:view].render :partial => "add_questionnaire", :locals => {:profil => bindings[:object], :categories => @categories}
-          end
-        end
-      end
-      group :show_information_complementaire do
-        label "Informations complémentaires"
-        help "Encadrants & groupe de soutients"
-        field :user
-        field :medecin do
-          :title
-        end
-        field :groupe_enfant
-        field :groupe_parent
-      end
+    edit do
+      field :schooltype
+      field :name
+      field :zip
     end
   end
   
   config.model User do
     navigation_label 'Ressources humaines'
     list do
-      field :name
+      field :last_name
+      field :first_name
       field :role
     end
     edit do
-      field :name
+      field :first_name
+      field :last_name
       field :role
       field :email
       field :password
       field :password_confirmation
+    end
+  end
+  
+  config.model Tuteur do
+    navigation_label 'Ressources humaines'
+    list do
+      field :tuteur_type
+      field :last_name
+      field :first_name
+      field :groupe_parent
+      field :profils
+      field :created_at  
+    end
+    edit do
+      field :tuteur_type
+      field :last_name
+      field :first_name
+      field :profession
+      field :groupe_parent
+      field :emails
+      field :phones
+      field :addresses
+      field :profils
+      field :comments
     end
   end
   
@@ -332,3 +472,4 @@ RailsAdmin.config do |config|
   end
   
 end
+

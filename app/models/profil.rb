@@ -31,9 +31,6 @@ class Profil < ActiveRecord::Base
   
   has_many :diagnostics, :as => :diagnosticable, :dependent => :destroy
   accepts_nested_attributes_for :diagnostics, :allow_destroy => true
-
-  #has_many :etpis, :as => :etpiable, :dependent => :destroy
-  #accepts_nested_attributes_for :etpis
   
   validates_presence_of :first_name
   validates_presence_of :last_name

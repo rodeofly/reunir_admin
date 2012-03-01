@@ -25,7 +25,7 @@ gem 'jquery-rails'
 
 #Added by Florian
 gem "paperclip"
-gem 'rails_admin', '>= 0'
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'therubyracer'
 gem "nifty-generators", :group => :development
 gem "cancan"

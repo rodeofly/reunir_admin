@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date_of_diagnostique: 2012-02-29
+  diagnostique_type: MyString
+
+two:
+  date_of_diagnostique: 2012-02-29
+  diagnostique_type: MyString

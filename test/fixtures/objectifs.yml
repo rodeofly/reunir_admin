@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  objectif_type: MyString
+  objectif: MyText
+  atteint: false
+
+two:
+  objectif_type: MyString
+  objectif: MyText
+  atteint: false

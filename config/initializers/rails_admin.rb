@@ -254,7 +254,7 @@ RailsAdmin.config do |config|
         field :organization_member
         field :profils
       end
-      group :edit_medecin_information_complementaire do
+      group :edit_medecin_contact do
         active do
           false
         end
@@ -289,7 +289,7 @@ RailsAdmin.config do |config|
         field :name
         field :org_member
       end
-      group :show_medecin_information_complementaire do
+      group :show_medecin_contact do
         label "Contacts"
         help "Moyens de contacts"
         field :info_emails_pp do
@@ -496,13 +496,13 @@ RailsAdmin.config do |config|
       group :show_profil_contact do
         label "Contact"
         help "Moyens de contact"
-        field :emails_pp do
+        field :info_emails_pp do
           label "Emails"
         end        
-        field :phones_pp do
+        field :info_phones_pp do
           label "Téléphones"
         end        
-        field :addresses_pp do
+        field :info_addresses_pp do
           label "Adresses"
         end
       end   
@@ -637,7 +637,7 @@ RailsAdmin.config do |config|
       field :profils
       field :created_at  
     end
-     edit do
+    edit do
       group :edit_tuteur_identity do
         label "Informations de base"
         help "Renseigements principaux"
@@ -647,7 +647,7 @@ RailsAdmin.config do |config|
         field :profession
         field :groupe_parent
       end
-      group :edit_tuteur_information_complementaire do
+      group :edit_tuteur_contact do
         active do
           false
         end
@@ -683,7 +683,7 @@ RailsAdmin.config do |config|
         field :profession
         field :groupe_parent
       end
-      group :show_tuteur_information_complementaire do
+      group :show_tuteur_contact do
         label "Contacts"
         help "Moyens de contacts"
         field :info_emails_pp do

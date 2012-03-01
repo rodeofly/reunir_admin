@@ -18,7 +18,12 @@ class Comment < ActiveRecord::Base
   
   def name
     comment = ""
-    comment += self.comment_type.blank? ? "" : self.comment_type + " : "
-    comment += self.comment.blank? ? "" : self.comment
+    comment += self.comment_type.blank? ? "" : self.comment_type
+  end
+  
+  def pp
+    info_temp = ""
+    info_temp += !self.comment_type.blank? ? self.comment_type + " : " : ""
+    info_temp += !self.comment.blank? ? self.comment : ""
   end
 end

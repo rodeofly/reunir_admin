@@ -3,7 +3,12 @@ class Diagnostic < ActiveRecord::Base
   
   has_many :comments, :as => :commentable, :dependent => :destroy
   accepts_nested_attributes_for :comments, :allow_destroy => true
-    
+   
+
+  def diagnostic_type_enum
+    ['intermediaire', 'annuel']
+  end
+  
   def motivation_famille_enum
     ['excellente', 'bonne', 'moyenne', 'insuffisante']
   end

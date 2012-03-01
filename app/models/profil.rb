@@ -96,17 +96,6 @@ class Profil < ActiveRecord::Base
     self.prise_en_charge_anterieure.blank? ? "" : self.prise_en_charge_anterieure ? "oui" : "non"
   end
   
-  def emails_pp
-    emails_list = []
-    self.emails.each do |email|
-      email_temp = ""
-      email_temp += !email.email_type.blank? ?  email.email_type + " : " : ""
-      email_temp += !email.email.blank? ?  email.email : ""
-      emails_list << email_temp
-    end
-    emails_list.join("\n")
-  end
-  
   def info_diagnostics_pp
     info_all = []
     self.diagnostics.each do |diagnostic|
@@ -153,49 +142,6 @@ class Profil < ActiveRecord::Base
     end
     info_all.join("\n")
   end
-  
-  def addresses_pp
-    addresses = []
-    self.addresses.each do |address|
-      address_temp = ""
-      address_temp += !address.address_type.blank? ?  address.address_type + " :\n" : ""
-      address_temp += !address.line1.blank? ?  address.line1 + "\n" : ""
-      address_temp += !address.line2.blank? ? address.line2 + "\n" : ""
-      address_temp += !address.cp.blank? ? address.cp + " - " : ""
-      address_temp += !address.ville.blank? ? address.ville + "\n" : ""
-      address_temp += !address.country.blank? ? address.country + "\n" : ""
-      addresses << address_temp
-    end
-    addresses.join("\n")
-  end
-  
-  def info_comments_pp
-    info_all = []
-    self.comments.each do |comment|
-      info_temp = ""
-      info_temp += !comment.comment_type.blank? ? comment.comment_type + " : " : ""
-      info_temp += !comment.comment.blank? ? comment.comment : ""
-      info_all << info_temp
-    end
-    info_all.join("\n")
-  end
-  
-  def info_mesures_pp
-    info_all = []
-    self.mesures.each do |mesure|
-      info_temp = ""
-      info_temp += !mesure.date_of_mesure.blank? ? "Date du relevé : " +  I18n.localize(mesure.date_of_mesure,:format => :long) + "\n" : ""
-      info_temp += !mesure.poids.blank? ? "Poids : " + mesure.poids.to_s + " Kg\n" : ""
-      info_temp += !mesure.taille.blank? ? "Taille : " + mesure.taille.to_s + " cm\n" : ""
-      info_temp += !mesure.tour_de_taille.blank? ? "Tour de taille : " + mesure.tour_de_taille.to_s + " cm\n" : ""
-      info_temp += !mesure.tour_de_hanches.blank? ? "Tour de hanches : " + mesure.tour_de_hanches.to_s + " cm\n" : ""
-      info_temp += !mesure.z_score.blank? ? "Z Score : " + mesure.z_score.to_s + "\n" : ""
-      info_temp += !mesure.imc.blank? ? "IMC : " + mesure.imc.to_s + " Kg/m²\n" : "\n"
-      info_temp += !mesure.degre_obesite.blank? ? "Degré d'obésité : " + mesure.degre_obesite.to_s + "\n" : ""
-      info_all << info_temp
-    end
-    info_all.join("\n")
-  end
     
   def info_naissance_pp
     info_temp = ""
@@ -218,17 +164,44 @@ class Profil < ActiveRecord::Base
     info_temp += !self.prise_en_charge_anterieure.blank? ? "Prise en charge antérieure : " + self.prise_en_charge_anterieure? + "\n" : ""
   end
   
+  def info_mesures_pp
+    info_all = []
+    self.mesures.each do |mesure|
+      info_all << mesure.pp
+    end
+    info_all.join("\n")
+  end
   
+  def info_addresses_pp
+    addresses = []
+    self.addresses.each do |address|
+      addresses << address.pp
+    end
+    addresses.join("\n")
+  end
   
-  def phones_pp
+  def info_comments_pp
+    info_all = []
+    self.comments.each do |comment|      
+      info_all << comment.pp
+    end
+    info_all.join("\n")
+  end
+  
+  def info_phones_pp
     phones_list = []
     self.phones.each do |phone|
-      phone_temp = ""
-      phone_temp += !phone.phone_type.blank? ?  phone.phone_type + " : " : ""
-      phone_temp += !phone.number.blank? ?  phone.number : ""
-      phones_list << phone_temp
+      phones_list << phone.pp
     end
     phones_list.join("\n")
+  end
+  
+  def info_emails_pp
+    emails_list = []
+    self.emails.each do |email|
+      emails_list << email.pp
+    end
+    emails_list.join("\n")
   end
   
   

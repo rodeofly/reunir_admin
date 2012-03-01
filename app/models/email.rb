@@ -12,4 +12,10 @@ class Email < ActiveRecord::Base
     email += !self.email_type.blank? ? self.email_type + " : " : ""
     email += !self.email.blank? ? self.email : ""
   end
+  
+  def pp
+    email_temp = ""
+    email_temp += !self.email_type.blank? ?  self.email_type + " : " : ""
+    email_temp += !self.email.blank? ?  self.email : ""
+  end
 end

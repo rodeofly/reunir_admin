@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120225044506) do
+ActiveRecord::Schema.define(:version => 20120229075836) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type"
@@ -41,6 +41,27 @@ ActiveRecord::Schema.define(:version => 20120225044506) do
     t.string   "commentable_type"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "diagnostics", :force => true do |t|
+    t.date     "date_du_diagnostic"
+    t.date     "date_du_prochain_diagnostic"
+    t.string   "diagnostic_type"
+    t.boolean  "anomalie_activite_physique"
+    t.boolean  "anomalie_temps_ecran"
+    t.boolean  "anomalie_grignotage"
+    t.boolean  "anomalie_consommation_soda"
+    t.boolean  "anomalie_alimentation_trop_riche"
+    t.boolean  "anomalie_alimentation_fruits_legumes"
+    t.boolean  "anomalie_composition_repas"
+    t.boolean  "anomalie_contexte_repas"
+    t.boolean  "anomalie_repartition_repas"
+    t.string   "motivation_famille"
+    t.string   "motivation_enfant"
+    t.integer  "diagnosticable_id"
+    t.string   "diagnosticable_type"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "emails", :force => true do |t|
@@ -73,6 +94,35 @@ ActiveRecord::Schema.define(:version => 20120225044506) do
     t.datetime "updated_at",          :null => false
   end
 
+  create_table "medecins_profils", :id => false, :force => true do |t|
+    t.integer "profil_id"
+    t.integer "medecin_id"
+  end
+
+  create_table "mesures", :force => true do |t|
+    t.date     "date_of_mesure"
+    t.float    "poids"
+    t.float    "taille"
+    t.integer  "tour_de_taille"
+    t.integer  "tour_de_hanches"
+    t.float    "z_score"
+    t.string   "degre_obesite"
+    t.integer  "mesurable_id"
+    t.string   "mesurable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "objectifs", :force => true do |t|
+    t.string   "objectif_type"
+    t.text     "objectif"
+    t.boolean  "atteint"
+    t.integer  "objectivable_id"
+    t.string   "objectivable_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "phones", :force => true do |t|
     t.string   "phone_type"
     t.string   "number"
@@ -92,9 +142,20 @@ ActiveRecord::Schema.define(:version => 20120225044506) do
     t.integer  "medecin_id"
     t.integer  "user_id"
     t.integer  "groupe_enfant_id"
-    t.integer  "groupe_parent_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.float    "taille_naissance"
+    t.float    "poids_naissance"
+    t.integer  "terme_sa"
+    t.boolean  "rciu"
+    t.boolean  "pma"
+    t.boolean  "diabete_gestationnel"
+    t.boolean  "allaitement"
+    t.integer  "duree_allaitement"
+    t.boolean  "rebond_ponderal_precoce"
+    t.integer  "age_obesite"
+    t.boolean  "facteur_declenchant"
+    t.boolean  "prise_en_charge_anterieure"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "profils_tuteurs", :id => false, :force => true do |t|
@@ -135,10 +196,10 @@ ActiveRecord::Schema.define(:version => 20120225044506) do
     t.string   "tuteur_type"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "profession"
+    t.integer  "groupe_parent_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.integer  "groupe_parent_id"
-    t.string   "profession"
   end
 
   create_table "users", :force => true do |t|

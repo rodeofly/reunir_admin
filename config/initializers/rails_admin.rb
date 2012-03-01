@@ -226,12 +226,12 @@ RailsAdmin.config do |config|
     navigation_label 'Paramètres'
     list do
       field :name
-      field :nombre_de_profils
+      field :nombre_de_tuteurs
     end
     show do
       field :name
-      field :profils
-      field :nombre_de_profils
+      field :tuteurs
+      field :nombre_de_tuteurs
     end
   end
   
@@ -247,6 +247,7 @@ RailsAdmin.config do |config|
     edit do
       group :edit_medecin_identity do
         label "Informations de base"
+        help "Renseigements principaux"
         field :last_name
         field :first_name
         field :specialty
@@ -254,34 +255,64 @@ RailsAdmin.config do |config|
         field :profils
       end
       group :edit_medecin_information_complementaire do
-        label "Informations complémentaires"
+        active do
+          false
+        end
+        label "Contacts"
+        help "Moyens de contacts"        
         field :emails
         field :phones
         field :addresses
-        field :comments
       end
-      group :edit_patients do
+      group :edit_medecin_patients do
+        active do
+          false
+        end
         label "Patients en charge"
+        help "Gestion des patients attribués à ce professionnel"
         field :profils
+      end
+      group :edit_medecin_commentaires do
+        active do
+          false
+        end
+        label "Commentaires"
+        help "Notes & commentaires à propos de ce professionnel"        
+        field :comments
       end
     end
     
     show do
       group :show_medecin_information_de_base do
         label "Informations de base"
+        help "Renseigements principaux"
         field :name
         field :org_member
       end
       group :show_medecin_information_complementaire do
-        label "Informations complémentaires"
-        field :emails_pp
-        field :phones_pp
-        field :addresses_pp
-        field :comments
+        label "Contacts"
+        help "Moyens de contacts"
+        field :info_emails_pp do
+          label "Emails"
+        end
+        field :info_phones_pp do
+          label "Téléphones"
+        end
+        field :info_addresses_pp do
+          label "Adresses"
+        end
       end
       group :show_medecin_patients do
-        label "Patient(s) en charge"
+        label "Patients en charge"
+        help "Gestion des patients attribués à ce professionnel"
         field :profils
+      end
+      group :show_medecin_commentaires do
+        label "Commentaires"
+        help "Notes & commentaires à propos de ce professionnel"
+        field :info_comments_pp  do
+          label "Commentaires"
+        end
       end
     end
   end
@@ -348,8 +379,8 @@ RailsAdmin.config do |config|
       end
       group :edit_profil_school do
         active false
-        label "Établissement scolaire"
-        help "Informations concernant la scolarité" 
+        label "Renseignements scolaire"
+        help "Établissement fréquenté"
         field :school
         field :classroom
       end
@@ -399,7 +430,7 @@ RailsAdmin.config do |config|
       group :edit_profil_histoire_obesite do
         active false
         label "Histoire de l'obésité"
-        help "Informations sur l'apparition de l'obésité chez le patient"
+        help "Informations relative à l'apparition de l'obésité"
         field :rebond_ponderal_precoce
         field :age_obesite
         field :facteur_declenchant
@@ -422,7 +453,7 @@ RailsAdmin.config do |config|
       group :edit_profil_diagnostics do
         active false
         label "Diagnostics"
-        help "Diagnostics des entretiens pédiatriques thérapeutiques individuels"
+        help "Diagnostics des entretiens thérapeutiques pédiatriques individuels"
         field :diagnostics
       end
       group :edit_profil_objectifs do
@@ -433,8 +464,8 @@ RailsAdmin.config do |config|
       end
       group :edit_profil_questionnaires do
         active false
-        label "Questionnaires Limesurvey"
-        help "Réponses aux questionnaires limesurvey par le patient"
+        label "Questionnaires"
+        help "Gestion des questionnaires."
         field :questionnaires
       end
     end
@@ -444,13 +475,14 @@ RailsAdmin.config do |config|
       field :first_name
       field :user
       field :groupe_enfant
-      field :created_at
-    end
-    
+      field :created_at do
+        label "Inscrit le"
+      end
+    end  
     show do
       group :show_profil_identity do
-        label "Fiche d'identité"
-        help "information essentielles"
+        label "Informations de base"
+        help "Fiche identité"
         field :name
         field :gender
         field :birthdate
@@ -462,8 +494,8 @@ RailsAdmin.config do |config|
         field :classroom
       end
       group :show_profil_contact do
-        label "Informations de contacts"
-        help "Différents moyens de communication"
+        label "Contact"
+        help "Moyens de contact"
         field :emails_pp do
           label "Emails"
         end        
@@ -483,20 +515,22 @@ RailsAdmin.config do |config|
         field :groupe_enfant
       end 
       group :show_profil_gestation do
-        label "Gestation & Naissance"
-        help "Informations relative à la naissance."
-        field :info_naissance_pp
+        label "Grossesse & Naissance"
+        help "Informations sur le suivi médicale et la santé de l'enfant à la naissance"  
+        field :info_naissance_pp do
+          label "Information relative à la naissance"
+        end
       end
       group :show_profil_obesite do
         label "Histoire de l'obésité"
-        help "Informations relative à la naissance."
+        help "Informations relative à l'apparition de l'obésité"
         field :info_obesite_pp do
           label "Histoire de l'obésité"
         end
       end
       group :show_profil_mesures do
-        label "Relevé de mesures"
-        help "Mesures"
+        label "Mesure anthropométriques"
+        help "Collecte de données du carnet de santé"
         field :info_mesures_pp do
           label "Mesures"
         end
@@ -517,7 +551,7 @@ RailsAdmin.config do |config|
       end
       group :show_profil_objectifs do
         label "Objectifs"
-        help "Objectifs fixés, atteint ou pas"
+        help "Définition des objectifs"
         field :info_objectifs_pp do
            label "Objectifs"
         end
@@ -603,17 +637,77 @@ RailsAdmin.config do |config|
       field :profils
       field :created_at  
     end
-    edit do
-      field :tuteur_type
-      field :last_name
-      field :first_name
-      field :profession
-      field :groupe_parent
-      field :emails
-      field :phones
-      field :addresses
-      field :profils
-      field :comments
+     edit do
+      group :edit_tuteur_identity do
+        label "Informations de base"
+        help "Renseigements principaux"
+        field :tuteur_type
+        field :last_name
+        field :first_name
+        field :profession
+        field :groupe_parent
+      end
+      group :edit_tuteur_information_complementaire do
+        active do
+          false
+        end
+        label "Contacts"
+        help "Moyens de contacts"        
+        field :emails
+        field :phones
+        field :addresses
+      end
+      group :edit_tuteur_patients do
+        active do
+          false
+        end
+        label "Enfants à charge"
+        help "Gestion des enfants à charge de ce parent"
+        field :profils
+      end
+      group :edit_tuteur_commentaires do
+        active do
+          false
+        end
+        label "Commentaires"
+        help "Notes & commentaires à propos de parent"        
+        field :comments
+      end
+    end
+    
+    show do
+      group :show_tuteur_information_de_base do
+        label "Informations de base"
+        help "Renseigements principaux"
+        field :name
+        field :profession
+        field :groupe_parent
+      end
+      group :show_tuteur_information_complementaire do
+        label "Contacts"
+        help "Moyens de contacts"
+        field :info_emails_pp do
+          label "Emails"
+        end
+        field :info_phones_pp do
+          label "Téléphones"
+        end
+        field :info_addresses_pp do
+          label "Adresses"
+        end
+      end
+      group :show_tuteur_profils do
+        label "Enfants à charge"
+        help "Gestion des enfants à charge de ce parent"
+        field :profils
+      end
+      group :show_tuteur_commentaires do
+        label "Commentaires"
+        help "Notes & commentaires à propos de ce parent"
+        field :info_comments_pp  do
+          label "Commentaires"
+        end
+      end
     end
   end
   

@@ -14,4 +14,10 @@ class Phone < ActiveRecord::Base
     phone += !self.phone_type.blank? ? self.phone_type + " : " : ""
     phone += !self.number.blank? ? self.number : ""
   end
+  
+  def pp
+    phone_temp = ""
+    phone_temp += !self.phone_type.blank? ?  self.phone_type + " : " : ""
+    phone_temp += !self.number.blank? ?  self.number : ""
+  end
 end

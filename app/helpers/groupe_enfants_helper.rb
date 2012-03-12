@@ -1,2 +1,0 @@
-module GroupeEnfantsHelper
-end

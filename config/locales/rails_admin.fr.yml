@@ -188,6 +188,8 @@ fr:
       item: "Objet"
       message: "Message"
     actions:
+      statistique:
+        menu: "Statistiques"
       pdf:
         title: "Export PDF"
         breadcrumb: "PDF"

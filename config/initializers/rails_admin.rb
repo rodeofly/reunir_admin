@@ -123,9 +123,93 @@ RailsAdmin.config do |config|
   #    end 
   #  end
   #end
+  RailsAdmin.config do |config|
+    config.actions do
+      # root actions
+      dashboard                     # mandatory
+      # collection actions 
+      index                         # mandatory
+      new
+      export
+      history_index
+      bulk_delete
+      collection :statistique, :base do
+        controller do 
+          Proc.new do
+            render :partial => "render_stats", :locals => { :objects => list_entries}
+          end  
+        end 
+      end
+      # member actions
+      show
+      edit
+      delete
+      history_show
+      show_in_app
+    end
+  end
   
-  
- 
+  config.model SeanceEnfant do
+    navigation_label 'Éducation thérapeutique'
+    edit do
+      field :date_of_seance
+      field :groupe_enfant
+      field :theme
+      field :profils do
+        associated_collection_scope do
+          # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+          seance_enfant = bindings[:object]
+          Proc.new { |scope|
+            # scoping all Players currently, let's limit them to the team's league
+            # Be sure to limit if there are a lot of Players and order them by position
+            scope = scope.where(groupe_enfant_id: seance_enfant.groupe_enfant) if seance_enfant.present?
+            scope = scope.order('profils.last_name DESC')
+          }
+        end
+      end
+      field :comments
+    end
+    show do
+      field :date_of_seance
+      field :groupe_enfant
+      field :theme
+      field :profils
+      field :info_comments_pp do
+        label "Commentaires"
+      end
+    end
+  end
+   
+  config.model SeanceParent do
+    navigation_label 'Éducation thérapeutique'
+    edit do
+      field :date_of_seance
+      field :groupe_parent
+      field :theme
+      field :tuteurs do
+        associated_collection_scope do
+          # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+          seance_parent = bindings[:object]
+          Proc.new { |scope|
+            # scoping all Players currently, let's limit them to the team's league
+            # Be sure to limit if there are a lot of Players and order them by position
+            scope = scope.where(groupe_parent_id: seance_parent.groupe_parent) if seance_parent.present?
+            scope = scope.order('parents.last_name DESC')
+          }
+        end
+      end
+      field :comments
+    end
+    show do
+      field :date_of_seance
+      field :groupe_parent
+      field :theme
+      field :tuteurs
+      field :info_comments_pp do
+        label "Commentaires"
+      end
+    end
+  end
   
   config.model Email do
     visible do
@@ -318,13 +402,22 @@ RailsAdmin.config do |config|
   end
   
   config.model Mesure do
-    
+    visible do
+      false
+    end
     navigation_label 'Autres'
     object_label_method do
       :date_of_mesure
     end
     configure :mesurable do
       visible false
+    end
+    list do
+      field :mesurable
+      field :date_of_mesure
+      field :imc
+      field :z_score
+      field :degre_obesite
     end
     edit do
       field :date_of_mesure
@@ -383,6 +476,7 @@ RailsAdmin.config do |config|
         help "Établissement fréquenté"
         field :school
         field :classroom
+        field :redoublement
       end
       group :edit_profil_contact do
         active false
@@ -396,10 +490,24 @@ RailsAdmin.config do |config|
         active false
         label "Encadrement & suivi"
         help "Responsables légaux & professionnels de santé"
-        field :tuteurs
         field :user
         field :groupe_enfant
         field :medecins
+      end
+      group :edit_profil_foyer do
+        active false
+        label "Foyer"
+        help "Informations concernant le foyer"
+        field :tuteurs
+        field :situation_maritale_des_parents
+        field :fratrie
+        field :rang_dans_la_fratrie
+        field :habitant_du_foyer
+        field :type_de_logement
+        field :television
+        field :ordinateur
+        field :parabole
+        field :internet
       end
       group :edit_profil_suivi_medical_naissance do
         active false
@@ -436,31 +544,31 @@ RailsAdmin.config do |config|
         field :facteur_declenchant
         field :prise_en_charge_anterieure
       end  
-      
+     
       group :edit_profil_mesure do
         active false
         label "Mesure anthropométriques"
         help "Collecte de données du carnet de santé"
         field :mesures
       end
-      
-      group :edit_profil_complement do
+      group :edit_profil_objectifs do
         active false
-        label "Complément d'information"
-        help "Collecte d'info supplémentaire"
-        field :comments
+        label "Objectifs"
+        help "Définition des objectifs"
+        field :objectifs
       end
+      
       group :edit_profil_diagnostics do
         active false
         label "Diagnostics"
         help "Diagnostics des entretiens thérapeutiques pédiatriques individuels"
         field :diagnostics
       end
-      group :edit_profil_objectifs do
+    group :edit_profil_complement do
         active false
-        label "Objectifs"
-        help "Définition des objectifs"
-        field :objectifs
+        label "Complément d'information"
+        help "Collecte d'info supplémentaire"
+        field :comments
       end
       group :edit_profil_questionnaires do
         active false
@@ -492,6 +600,7 @@ RailsAdmin.config do |config|
         help "Établissement fréquenté"
         field :school
         field :classroom
+        field :redoublement
       end
       group :show_profil_contact do
         label "Contact"
@@ -509,11 +618,19 @@ RailsAdmin.config do |config|
       group :show_profil_encadrement do
         label "Encadrement & suivi"
         help "Responsables légaux & professionnels de santé"
-        field :tuteurs
         field :user
         field :medecins
         field :groupe_enfant
       end 
+      group :show_profil_foyer do
+        active false
+        label "Foyer"
+        help "Les responsables légaux et le foyer"
+        field :tuteurs
+        field :info_foyer_pp do
+          label "Information relative au foyer"
+        end
+      end
       group :show_profil_gestation do
         label "Grossesse & Naissance"
         help "Informations sur le suivi médicale et la santé de l'enfant à la naissance"  
@@ -556,6 +673,13 @@ RailsAdmin.config do |config|
            label "Objectifs"
         end
       end
+      group :show_profil_seances do
+        label "Séance d'éducation thérapeutique"
+        help "État de présence"
+        field :seance_enfants do
+           label "Séances"
+        end
+      end
       group :show_profil_questionnaire do
         label "Questionnaires"
         help "Gestion des questionnaires."
@@ -571,6 +695,7 @@ RailsAdmin.config do |config|
     end
     
   end
+  
   
   config.model Questionnaire do
     navigation_label 'Paramètres'
@@ -647,16 +772,6 @@ RailsAdmin.config do |config|
         field :profession
         field :groupe_parent
       end
-      group :edit_tuteur_contact do
-        active do
-          false
-        end
-        label "Contacts"
-        help "Moyens de contacts"        
-        field :emails
-        field :phones
-        field :addresses
-      end
       group :edit_tuteur_patients do
         active do
           false
@@ -683,23 +798,17 @@ RailsAdmin.config do |config|
         field :profession
         field :groupe_parent
       end
-      group :show_tuteur_contact do
-        label "Contacts"
-        help "Moyens de contacts"
-        field :info_emails_pp do
-          label "Emails"
-        end
-        field :info_phones_pp do
-          label "Téléphones"
-        end
-        field :info_addresses_pp do
-          label "Adresses"
-        end
-      end
       group :show_tuteur_profils do
         label "Enfants à charge"
         help "Gestion des enfants à charge de ce parent"
         field :profils
+      end
+      group :show_tuteur_seances do
+        label "Séance d'éducation thérapeutique"
+        help "État de présence"
+        field :seance_parents do
+           label "Séances"
+        end
       end
       group :show_tuteur_commentaires do
         label "Commentaires"

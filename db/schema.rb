@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229075836) do
+ActiveRecord::Schema.define(:version => 20120309044501) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type"
@@ -154,8 +154,23 @@ ActiveRecord::Schema.define(:version => 20120229075836) do
     t.integer  "age_obesite"
     t.boolean  "facteur_declenchant"
     t.boolean  "prise_en_charge_anterieure"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "redoublement"
+    t.string   "situation_maritale_des_parents"
+    t.integer  "fratrie"
+    t.integer  "rang_dans_la_fratrie"
+    t.integer  "habitant_du_foyer"
+    t.string   "type_de_logement"
+    t.integer  "television"
+    t.integer  "ordinateur"
+    t.boolean  "parabole"
+    t.boolean  "internet"
+  end
+
+  create_table "profils_seance_enfants", :id => false, :force => true do |t|
+    t.integer "seance_enfant_id"
+    t.integer "profil_id"
   end
 
   create_table "profils_tuteurs", :id => false, :force => true do |t|
@@ -190,6 +205,27 @@ ActiveRecord::Schema.define(:version => 20120229075836) do
     t.integer  "zip_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "seance_enfants", :force => true do |t|
+    t.date     "date_of_seance"
+    t.string   "theme"
+    t.integer  "groupe_enfant_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "seance_parents", :force => true do |t|
+    t.date     "date_of_seance"
+    t.string   "theme"
+    t.integer  "groupe_parent_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "seance_parents_tuteurs", :id => false, :force => true do |t|
+    t.integer "seance_parent_id"
+    t.integer "tuteur_id"
   end
 
   create_table "tuteurs", :force => true do |t|

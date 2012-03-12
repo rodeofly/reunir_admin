@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Diagnostic < ActiveRecord::Base
   belongs_to :diagnosticable, :polymorphic => true
   
@@ -6,7 +7,7 @@ class Diagnostic < ActiveRecord::Base
    
 
   def diagnostic_type_enum
-    ['intermediaire', 'annuel']
+    ['Diagnostic intermédiaire', 'Diagnostic annuel']
   end
   
   def motivation_famille_enum

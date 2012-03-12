@@ -8,7 +8,7 @@ class Mesure < ActiveRecord::Base
   end
 
   def imc
-    !self.poids.blank? && !self.taille.blank? ? (self.poids / (self.taille * self.taille)).round(2) : "inconnu"
+    !self.poids.blank? && !self.taille.blank? ? (self.poids / (self.taille * self.taille / 10000)).round(2) : ""
   end
   
   def pp

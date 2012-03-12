@@ -22,6 +22,16 @@ class CreateProfils < ActiveRecord::Migration
       t.integer :age_obesite
       t.boolean :facteur_declenchant
       t.boolean :prise_en_charge_anterieure
+      t.boolean :redoublement
+      t.string :situation_maritale_des_parents
+      t.integer :fratrie
+      t.integer :rang_dans_la_fratrie
+      t.integer :habitant_du_foyer
+      t.string :type_de_logement
+      t.integer :television
+      t.integer :ordinateur
+      t.boolean :parabole
+      t.boolean :internet
       t.timestamps
     end
   end

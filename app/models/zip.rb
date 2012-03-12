@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Zip < ActiveRecord::Base
   validates_presence_of :city
   validates_presence_of :zipcode

@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   
   #validates_presence_of :name
   #validates_presence_of :role
-  has_many :profils
+  has_many :profils, :inverse_of => :user
   
   def role_enum
     %w[admin educateur]

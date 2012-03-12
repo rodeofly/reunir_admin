@@ -6,7 +6,10 @@
     <%= stylesheet_link_tag "application.print" , :media => "print" %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    
   </head>
+
   <body>
     <div id="container">
       <h1>Association Réunir</h1>
@@ -16,8 +19,9 @@
       <% end %>
       <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
-      
       <%= javascript_include_tag "jquery" %>
+      <%= javascript_include_tag "charts" %>
+ 
       <%= yield :custom_javascript %>
     </div>
   </body>

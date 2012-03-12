@@ -1,2 +1,0 @@
-class Cvsfile < PaperclipFile
-end

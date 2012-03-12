@@ -1,13 +1,15 @@
 # encoding: UTF-8
 class Profil < ActiveRecord::Base  
+  has_and_belongs_to_many :seance_enfants
+
   has_paper_trail
   
   has_and_belongs_to_many :medecins
   has_and_belongs_to_many :tuteurs
   
-  belongs_to :school  
-  belongs_to :user
-  belongs_to :groupe_enfant
+  belongs_to :school, :inverse_of => :profils
+  belongs_to :user, :inverse_of => :profils
+  belongs_to :groupe_enfant, :inverse_of => :profils
 
   has_many :questionnaires, :dependent => :destroy
   
@@ -39,12 +41,20 @@ class Profil < ActiveRecord::Base
     ['Petite Section', 'Moyenne Section', 'Grande Section', 'CP', 'CE1', 'CE2', 'CM1', 'CM2', '6ème', '5ème', '4ème', '3ème', '2nde', '1ère', 'Terminale']
   end
   
+  def situation_maritale_des_parents_enum
+    ['Mariés', 'Pacsé', 'En concubinage', 'Séparé', 'Isolé', 'Veuf', 'Famille recomposée']
+  end
+  
+  def type_de_logement_enum
+    ['Appartement', 'Maison']
+  end
+  
   def gender_enum
     ['Masculin', 'Féminin']
   end
   
   def degre_obesite_enum
-    ['Masculin', 'Féminin']
+    ['Normale', 'Surpoid', 'Obésité', 'Obésité morbide']
   end
     
   def name
@@ -52,6 +62,12 @@ class Profil < ActiveRecord::Base
     profil += !self.first_name.blank? ? self.first_name + " ": ""
     profil += !self.last_name.blank? ? self.last_name : ""
   end
+  
+  def age
+    now = Time.now.utc.to_date
+    now.year - self.birthdate.year - ((now.month > self.birthdate.month || (now.month == self.birthdate.month && now.day >= self.birthdate.day)) ? 0 : 1)
+  end
+  
   
   def nombre_de_questionnaires
     self.questionnaires.count
@@ -93,10 +109,22 @@ class Profil < ActiveRecord::Base
     self.prise_en_charge_anterieure.blank? ? "" : self.prise_en_charge_anterieure ? "oui" : "non"
   end
   
+  def diagnostics_array
+    array = []
+    self.diagnostics.each do |diagnostic|
+      transaction = []
+      diagnostic.attributes.each do |item|
+        transaction << item ? item.name : item.name
+      end
+      array << transaction
+    end
+  end
+  
   def info_diagnostics_pp
     info_all = []
     self.diagnostics.each do |diagnostic|
       info_temp = ""
+      info_temp += !diagnostic.diagnostic_type.blank? ? diagnostic.diagnostic_type + "\n" : ""
       info_temp += !diagnostic.date_du_diagnostic.blank? ? "Date : " + I18n.localize(diagnostic.date_du_diagnostic, :format => :long) + "\n" : ""
       info_temp += diagnostic.anomalie_activite_physique ? "Manque d'activités physiques\n" : ""
       info_temp += diagnostic.anomalie_temps_ecran ? "Excès de temps passé devant l'écran\n" : ""
@@ -159,6 +187,20 @@ class Profil < ActiveRecord::Base
     info_temp += !self.rebond_ponderal_precoce.blank? ? "Rebond pondéral précoce : " + self.rebond_ponderal_precoce? + "\n" : ""
     info_temp += !self.facteur_declenchant.blank? ? "Facteur déclenchant : " + self.facteur_declenchant? + "\n" : ""
     info_temp += !self.prise_en_charge_anterieure.blank? ? "Prise en charge antérieure : " + self.prise_en_charge_anterieure? + "\n" : ""
+  end
+  
+  def info_foyer_pp
+    info_temp = ""
+    info_temp += !self.situation_maritale_des_parents.blank? ? "Situation des parents : " + self.situation_maritale_des_parents + "\n" : ""
+    info_temp += !self.fratrie.blank? ? self.fratrie.to_s + " frère(s) et soeur(s)\n" : ""
+    info_temp += !self.rang_dans_la_fratrie.blank? ? "Rang dans la fratrie : " + self.rang_dans_la_fratrie.to_s + "\n" : ""
+    info_temp += !self.habitant_du_foyer.blank? ? "Foyer composé de " + self.habitant_du_foyer.to_s + " personnes\n" : ""
+    info_temp += !self.type_de_logement.blank? ? "Logement : " + self.type_de_logement + "\n" : ""
+    info_temp += !self.television.blank? ? !self.television ? "Pas de télévision : " : self.television.to_s + " télévision(s)\n" : ""
+    info_temp += !self.ordinateur.blank? ? !self.ordinateur ? "Pas d'ordinateur : " : self.ordinateur.to_s + " ordinateur(s)\n" : ""
+    info_temp += !self.parabole ? "" : "Présence d'une parabole\n"
+    info_temp += !self.internet ? "" : "Connecté à internet\n"
+    
   end
   
   def info_mesures_pp

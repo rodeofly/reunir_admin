@@ -3,7 +3,7 @@ class PdfReport < Prawn::Document
   def to_pdf(object)
     pdf = Prawn::Document.new
     object_class = object.class.name
-    logo1 = "app/assets/images/logo.png"
+    logo1 = "app/assets/rails_admin/images/logo.png"
     pdf.image logo1, :scale => 0.5, :position => :center,   :vposition => :top
     pdf.move_down 40
     case object_class
@@ -40,22 +40,6 @@ class PdfReport < Prawn::Document
         pdf.move_down 10
         pdf.font("Helvetica", :size => 12)
         
-        if object.responsable1.blank? then
-          pdf.text "<b>Mère :</b> inconnu", :inline_format => true
-        else
-          pdf.text "<b>Mère :</b> " + object.responsable1, :inline_format => true
-        end
-        
-        if object.responsable2.blank? then
-          pdf.text "<b>Père :</b> inconnu", :inline_format => true
-        else
-          pdf.text "<b>Père :</b> " + object.responsable2, :inline_format => true
-        end
-        
-        if object.responsable3.blank? then
-        else
-          pdf.text "<b>Autre responsable légal :</b> " + object.responsable3, :inline_format => true
-        end
         
         pdf.move_down 20
         pdf.font("Helvetica", :size => 16)
@@ -87,57 +71,13 @@ class PdfReport < Prawn::Document
           pdf.text "<b>Éducateur en charge :</b> " + object.user.name, :inline_format => true
         end
         
-        if object.medecin.blank? then
-          pdf.text "<b>Médecin :</b> inconnu", :inline_format => true
-        else
-          pdf.text "<b>Médecin :</b> " + object.medecin.title + " - " + object.medecin.specialty, :inline_format => true
-        end
         
         if object.groupe_enfant.blank? then
           pdf.text "<b>Groupe de l'enfant :</b> inconnu", :inline_format => true
         else
           pdf.text "<b>Groupe de l'enfant :</b> " + object.groupe_enfant.name, :inline_format => true
         end
-        
-        if object.groupe_parent.blank? then
-          pdf.text "<b>Groupe des parents :</b> inconnu", :inline_format => true
-        else
-          pdf.text "<b>Groupe des parents :</b> " + object.groupe_parent.name, :inline_format => true
-        end
-        
-        pdf.move_down 20
-        pdf.font("Helvetica", :size => 16)
-        pdf.text "<b><u>Contact</u></b>", :inline_format => true
-        pdf.move_down 10
-        pdf.font("Helvetica", :size => 12)
-        if !object.email.blank? then
-          pdf.text "<b>Email :</b> " + object.email, :inline_format => true
-        end
-        if !object.address.phone1.blank? then
-          pdf.text "<b>Domicile :</b> " + object.address.phone1, :inline_format => true
-        end
-        if !object.address.phone2.blank? then
-          pdf.text "<b>Bureau :</b> " + object.address.phone2, :inline_format => true
-        end
-        if !object.address.gsm1.blank? then
-          pdf.text "<b>GSM1 :</b> " + object.address.gsm1, :inline_format => true
-        end
-        if !object.address.gsm2.blank? then
-          pdf.text "<b>GSM2 :</b> " + object.address.gsm2, :inline_format => true
-        end
-        
-        pdf.move_down 5
-        pdf.text "<b>Adresse</b> ", :inline_format => true
-        if !object.address.line1.blank? then
-          pdf.text object.address.line1, :inline_format => true
-        end
-        if !object.address.line2.blank? then
-          pdf.text object.address.line2, :inline_format => true
-        end
-        if !object.address.zip.blank? then
-          pdf.text object.address.zip.name, :inline_format => true
-        end
-      
+       
       when "Questionnaire" then
         pdf.font("Helvetica", :size => 20)
         pdf.text "<b>Questionnaire " + object.title + "</b>", :inline_format => true

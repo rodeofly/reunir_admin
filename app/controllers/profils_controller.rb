@@ -1,4 +1,30 @@
 class ProfilsController < ApplicationController
+  
+  def subscriptions_graph
+    days = (params[:days] || 30).to_i
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: {
+        :type => 'AreaChart',
+        :cols => [['string', 'Date'], ['number', 'subscriptions'], ['number', 'purchases']],
+        :rows => (1..days).to_a.inject([]) do |memo, i|
+           date = i.days.ago.to_date
+           t0, t1 = date.beginning_of_day, date.end_of_day
+           subscriptions = Subscription.where(:created_at.gte => t0, :created_at.lte => t1).count
+           purchases = Purchase.where(:purchased_at.gte => t0, :purchased_at.lte => t1).count
+           memo << [date, subscriptions, purchases]
+           memo
+        end.reverse,
+        :options => {
+          :chartArea => { :width => '90%', :height => '75%' },
+          :hAxis => { :showTextEvery => 30 },
+          :legend => 'bottom',
+        }
+      }}
+    end
+    
+  end
+  
   # GET /profils
   # GET /profils.json
   def index

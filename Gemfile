@@ -15,23 +15,27 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
+  gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'jquery-rails'
 
-
+group :development do
+  gem "rails-erd"
+end
 #Added by Florian
 gem "paperclip"
 gem 'rails_admin', '>= 0', :git => 'git://github.com/sferik/rails_admin.git'
-gem 'therubyracer'
 gem "nifty-generators", :group => :development
 gem "cancan"
 gem 'paper_trail', '~> 2'
 gem "devise"
 gem "prawn"
+gem "googlecharts", :require => "gchart"
+gem "google_visualr", ">= 2.1"
+gem "dotiw",  :git => 'git://github.com/radar/dotiw'
 #bundle exec rails generate paper_trail:install
 
 #gem "rails_admin_import", :git => "git://github.com/stephskardal/demo.git"

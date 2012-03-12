@@ -1,15 +1,13 @@
 # encoding: UTF-8
 class Tuteur < ActiveRecord::Base
-  has_many :addresses, :as => :addressable, :dependent => :destroy
-  accepts_nested_attributes_for :addresses
-  has_many :phones, :as => :phonable, :dependent => :destroy
-  accepts_nested_attributes_for :phones
-  has_many :emails, :as => :emailable, :dependent => :destroy
-  accepts_nested_attributes_for :emails
+  has_and_belongs_to_many :seance_parents
+  has_and_belongs_to_many :profils
+
+  belongs_to :groupe_parent, :inverse_of => :tuteurs
+  
   has_many :comments, :as => :commentable, :dependent => :destroy
   accepts_nested_attributes_for :comments
-  has_and_belongs_to_many :profils
-  belongs_to :groupe_parent
+
   validates_presence_of :first_name
   validates_presence_of :last_name
   
@@ -22,10 +20,7 @@ class Tuteur < ActiveRecord::Base
   end
   
   def name
-    tuteur = ""
-    tuteur += !self.tuteur_type.blank? ? self.tuteur_type + " : " : ""
-    tuteur += !self.first_name.blank? ? self.first_name + " ": ""
-    tuteur += !self.last_name.blank? ? self.last_name : ""
+    "#{!self.first_name.blank? ? self.first_name : ""} #{!self.last_name.blank? ? self.last_name : ""}(#{!self.tuteur_type.blank? ? self.tuteur_type : ""})"
   end
   
   def info_addresses_pp

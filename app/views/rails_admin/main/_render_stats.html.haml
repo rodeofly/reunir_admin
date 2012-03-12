@@ -1,0 +1,17 @@
+- objects.each do |object|
+  =object.name
+  - x_val = []
+  - y_val = []
+
+  - axis_labels = []
+  - object.mesures.each do |mesure|
+    - x_val << mesure.date_of_mesure.to_time.to_i
+    - axis_labels << I18n.localize(mesure.date_of_mesure, :format => :long)
+    - y_val << mesure.poids
+  - first = axis_labels.shift
+  - last = axis_labels.pop
+  - x_axis_labels = [first,last].join("|")
+  - y_axis_labels = y_val.join("|")
+  = [x_axis_labels,y_axis_labels]
+  = image_tag Gchart.line(:data => y_val, :axis_with_labels => 'x,r',:axis_labels => [x_axis_labels,y_axis_labels])
+  = render_chart(charte, 'chart') 

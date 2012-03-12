@@ -2,11 +2,12 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :read, :all  
+    can :read, :all
+    can :access, :rails_admin
+
+    
     if user
-      can :access, :rails_admin
       if user.role? :educateur
-        can :access, :rails_admin
         can :dashboard 
         can :update, [Profil]
         can :show_in_app, Questionnaire

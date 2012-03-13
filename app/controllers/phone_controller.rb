@@ -1,2 +1,0 @@
-class PhoneController < ApplicationController
-end

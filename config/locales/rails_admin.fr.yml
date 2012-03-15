@@ -38,8 +38,8 @@ fr:
         one: "école"
         other: "écoles"
       user:
-        one: éducateur
-        other: éducateurs
+        one: "éducateur thérapeutique"
+        other: "éducateurs thérapeutiques"
       tuteur:
         one: "parent"
         other: "parents"

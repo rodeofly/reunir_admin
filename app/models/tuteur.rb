@@ -5,6 +5,8 @@ class Tuteur < ActiveRecord::Base
 
   belongs_to :groupe_parent, :inverse_of => :tuteurs
   
+  has_many :tuteur_mesures, :inverse_of => :tuteur
+  
   has_many :comments, :as => :commentable, :dependent => :destroy
   accepts_nested_attributes_for :comments
 
@@ -53,5 +55,13 @@ class Tuteur < ActiveRecord::Base
       emails_list << email.pp
     end
     emails_list.join("\n")
+  end
+  
+  def info_mesures_pp
+    info_all = []
+    self.tuteur_mesures.each do |mesure|
+      info_all << mesure.pp
+    end
+    info_all.join("\n")
   end
 end

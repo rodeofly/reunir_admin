@@ -1,6 +1,7 @@
-class CreateMesures < ActiveRecord::Migration
+class CreateTuteurMesures < ActiveRecord::Migration
   def change
-    create_table :mesures do |t|
+    create_table :tuteur_mesures do |t|
+      t.integer :tuteur_id
       t.date :date_of_mesure
       t.float :poids
       t.float :taille

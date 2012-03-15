@@ -26,12 +26,16 @@ class CreateProfils < ActiveRecord::Migration
       t.string :situation_maritale_des_parents
       t.integer :fratrie
       t.integer :rang_dans_la_fratrie
+      t.integer :fratrie_en_surpoids
       t.integer :habitant_du_foyer
       t.string :type_de_logement
       t.integer :television
       t.integer :ordinateur
       t.boolean :parabole
       t.boolean :internet
+      t.string :corticoide
+      t.string :antihistaminique
+      t.string :antiepileptique
       t.timestamps
     end
   end

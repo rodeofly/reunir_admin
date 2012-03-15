@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProfilsControllerTest < ActionController::TestCase
+class BilanSanguinTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

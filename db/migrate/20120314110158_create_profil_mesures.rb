@@ -1,6 +1,7 @@
-class CreateMesures < ActiveRecord::Migration
+class CreateProfilMesures < ActiveRecord::Migration
   def change
-    create_table :mesures do |t|
+    create_table :profil_mesures do |t|
+      t.integer :profil_id
       t.date :date_of_mesure
       t.float :poids
       t.float :taille
@@ -12,3 +13,4 @@ class CreateMesures < ActiveRecord::Migration
     end
   end
 end
+ 

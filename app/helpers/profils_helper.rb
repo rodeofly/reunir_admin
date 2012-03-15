@@ -12,7 +12,7 @@ module ProfilsHelper
     z_score = 0
     imc = 0
     
-    @profil.mesures.each do |mesure|
+    @profil.profil_mesures.each do |mesure|
       taille = mesure.taille.blank? ? taille : mesure.taille
       poids = mesure.poids.blank? ? poids : mesure.poids
       tour_de_taille = mesure.tour_de_taille.blank? ? tour_de_taille : mesure.tour_de_taille
@@ -35,7 +35,7 @@ module ProfilsHelper
     z_score = 0
     imc = 0
     
-    @profil.mesures.each do |mesure|
+    @profil.profil_mesures.each do |mesure|
       taille = mesure.taille.blank? ? taille : mesure.taille
       poids = mesure.poids.blank? ? poids : mesure.poids
       tour_de_taille = mesure.tour_de_taille.blank? ? tour_de_taille : mesure.tour_de_taille
@@ -43,7 +43,7 @@ module ProfilsHelper
       z_score = mesure.z_score.blank? ? z_score : mesure.z_score
       imc = mesure.imc.blank? ? imc : mesure.imc
       mesure_list << [
-        "new Date('" + mesure.date_of_mesure.to_s + "')",
+        "%new Date('" + mesure.date_of_mesure.to_s + "')%",
         taille,
         poids,
         tour_de_taille,

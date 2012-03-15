@@ -1,10 +1,9 @@
 # encoding: UTF-8
-class Mesure < ActiveRecord::Base
-  belongs_to :mesurable, :polymorphic => true
-  validates_presence_of :date_of_mesure
+class ProfilMesure < ActiveRecord::Base
+  belongs_to :profil, :inverse_of => :profil_mesures
   
-  def degre_obesite_enum
-    ['normale', 'surpoids', 'obésité', 'obésité sévère', 'obésité morbide']
+    def degre_obesite_enum
+    ['normal', 'corrigé', 'surpoids', 'obésité', 'obésité sévère', 'obésité morbide']
   end
 
   def imc

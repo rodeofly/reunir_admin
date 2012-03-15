@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProfilsControllerTest < ActionController::TestCase
+class TuteurMesureHistoryTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

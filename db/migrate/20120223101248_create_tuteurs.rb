@@ -4,6 +4,7 @@ class CreateTuteurs < ActiveRecord::Migration
       t.string :tuteur_type
       t.string :first_name
       t.string :last_name
+      t.date :birthdate
       t.string :profession
       t.integer :groupe_parent_id
       t.timestamps

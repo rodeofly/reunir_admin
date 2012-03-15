@@ -149,88 +149,6 @@ RailsAdmin.config do |config|
     end
   end
   
-  config.model SeanceEnfant do
-    navigation_label 'Éducation thérapeutique'
-    edit do
-      field :date_of_seance
-      field :groupe_enfant
-      field :theme
-      field :profils do
-        associated_collection_scope do
-          # bindings[:object] & bindings[:controller] are available, but not in scope's block!
-          seance_enfant = bindings[:object]
-          Proc.new { |scope|
-            # scoping all Players currently, let's limit them to the team's league
-            # Be sure to limit if there are a lot of Players and order them by position
-            scope = scope.where(groupe_enfant_id: seance_enfant.groupe_enfant) if seance_enfant.present?
-            scope = scope.order('profils.last_name DESC')
-          }
-        end
-      end
-      field :comments
-    end
-    show do
-      field :date_of_seance
-      field :groupe_enfant
-      field :theme
-      field :profils
-      field :info_comments_pp do
-        label "Commentaires"
-      end
-    end
-  end
-   
-  config.model SeanceParent do
-    navigation_label 'Éducation thérapeutique'
-    edit do
-      field :date_of_seance
-      field :groupe_parent
-      field :theme
-      field :tuteurs do
-        associated_collection_scope do
-          # bindings[:object] & bindings[:controller] are available, but not in scope's block!
-          seance_parent = bindings[:object]
-          Proc.new { |scope|
-            # scoping all Players currently, let's limit them to the team's league
-            # Be sure to limit if there are a lot of Players and order them by position
-            scope = scope.where(groupe_parent_id: seance_parent.groupe_parent) if seance_parent.present?
-            scope = scope.order('parents.last_name DESC')
-          }
-        end
-      end
-      field :comments
-    end
-    show do
-      field :date_of_seance
-      field :groupe_parent
-      field :theme
-      field :tuteurs
-      field :info_comments_pp do
-        label "Commentaires"
-      end
-    end
-  end
-  
-  config.model Email do
-    visible do
-      false
-    end
-    navigation_label 'Autres'
-    object_label_method do
-      :email_type
-    end
-    configure :emailable do
-      visible false
-    end
-    list do
-      field :emailable do
-        visible true
-      end
-      field :email
-      field :email_type
-    end
-  end
-  
   config.model Address do
     visible do
       false
@@ -256,6 +174,12 @@ RailsAdmin.config do |config|
     
   end
   
+  config.model BilanSanguin do
+    configure :bilanable do
+      visible false
+    end
+  end
+      
   config.model Category do
     navigation_label 'Paramètres'
     list do
@@ -293,6 +217,26 @@ RailsAdmin.config do |config|
     end
   end
   
+  config.model Email do
+    visible do
+      false
+    end
+    navigation_label 'Autres'
+    object_label_method do
+      :email_type
+    end
+    configure :emailable do
+      visible false
+    end
+    list do
+      field :emailable do
+        visible true
+      end
+      field :email
+      field :email_type
+    end
+  end
+ 
   config.model GroupeEnfant do
     navigation_label 'Paramètres'
     list do
@@ -401,10 +345,7 @@ RailsAdmin.config do |config|
     end
   end
   
-  config.model Mesure do
-    visible do
-      false
-    end
+  config.model ProfilMesure do
     navigation_label 'Autres'
     object_label_method do
       :date_of_mesure
@@ -413,19 +354,55 @@ RailsAdmin.config do |config|
       visible false
     end
     list do
-      field :mesurable
+      field :profil
       field :date_of_mesure
       field :imc
       field :z_score
       field :degre_obesite
     end
     edit do
+      field :profil
       field :date_of_mesure
       field :poids do
         help "en Kg"
       end  
       field :taille do
-        help "en m"
+        help "en cm"
+      end
+      field :tour_de_taille do
+        help "en cm"
+      end
+      field :tour_de_hanches do
+        help "en cm"
+      end
+      field :z_score
+      field :degre_obesite
+    end
+  end
+  
+  config.model TuteurMesure do
+    navigation_label 'Autres'
+    object_label_method do
+      :date_of_mesure
+    end
+    configure :mesurable do
+      visible false
+    end
+    list do
+      field :tuteur
+      field :date_of_mesure
+      field :imc
+      field :z_score
+      field :degre_obesite
+    end
+    edit do
+      field :tuteur
+      field :date_of_mesure
+      field :poids do
+        help "en Kg"
+      end  
+      field :taille do
+        help "en cm"
       end
       field :tour_de_taille do
         help "en cm"
@@ -488,7 +465,7 @@ RailsAdmin.config do |config|
       end
       group :edit_profil_encadrement do
         active false
-        label "Encadrement & suivi"
+        label "Accompagnement & suivi éducatif"
         help "Responsables légaux & professionnels de santé"
         field :user
         field :groupe_enfant
@@ -502,6 +479,7 @@ RailsAdmin.config do |config|
         field :situation_maritale_des_parents
         field :fratrie
         field :rang_dans_la_fratrie
+        field :fratrie_en_surpoids
         field :habitant_du_foyer
         field :type_de_logement
         field :television
@@ -509,30 +487,45 @@ RailsAdmin.config do |config|
         field :parabole
         field :internet
       end
-      group :edit_profil_suivi_medical_naissance do
+      group :edit_profil_medicament do
         active false
-        label "Grossesse & Naissance"
-        help "Informations sur le suivi médicale et la santé de l'enfant à la naissance"  
-        field :taille_naissance do
-          help "en cm"
-        end
+        label "Traitements médicamenteux"
+        help "Corticoïde, antihistaminique, antiépiléptique..."
+        field :corticoide
+        field :antihistaminique
+        field :antiepileptique
+      end
+      group :edit_profil_antecedent do
+        active false
+        label "Antécedents"
+        help "Moyens de contactDiabète, cholestérol, hypertension, maladies cardiovasculaires..."
+        field :antecedents
+      end
+      group :edit_profil_natalite do
+        active false
+        label "Natalité"
+        help "Informations sur le suivi médical et la santé de l'enfant à la naissance"  
+        
         field :poids_naissance do
           help "en Kg"
         end
+        field :taille_naissance do
+          help "en cm"
+        end
+        field :diabete_gestationnel
         field :terme_sa do
           help "en semaines d'aménorrhée"
+        end
+        field :allaitement
+        field :duree_allaitement do
+          help "en mois"
         end
         field :rciu do
           help "Retard de croissance intra-utérin"
         end
         field :pma do
           help "Procréation médicalement assistée"
-        end
-        field :diabete_gestationnel
-        field :allaitement
-        field :duree_allaitement do
-          help "en mois"
-        end
+        end   
         field :comments
       end
       group :edit_profil_histoire_obesite do
@@ -549,7 +542,13 @@ RailsAdmin.config do |config|
         active false
         label "Mesure anthropométriques"
         help "Collecte de données du carnet de santé"
-        field :mesures
+        field :profil_mesures
+      end    
+      group :show_profil_bilans do
+        active false
+        label "Bilan sanguin"
+        help "Biochimie sanguine (Glycémie, Tryglycérides, Choléstérol, HDL, LDL, T4L, TSH)"
+        field :bilan_sanguins
       end
       group :edit_profil_objectifs do
         active false
@@ -557,7 +556,6 @@ RailsAdmin.config do |config|
         help "Définition des objectifs"
         field :objectifs
       end
-      
       group :edit_profil_diagnostics do
         active false
         label "Diagnostics"
@@ -616,7 +614,7 @@ RailsAdmin.config do |config|
         end
       end   
       group :show_profil_encadrement do
-        label "Encadrement & suivi"
+        label "Accompagnement & suivi éducatif"
         help "Responsables légaux & professionnels de santé"
         field :user
         field :medecins
@@ -631,9 +629,21 @@ RailsAdmin.config do |config|
           label "Information relative au foyer"
         end
       end
-      group :show_profil_gestation do
-        label "Grossesse & Naissance"
-        help "Informations sur le suivi médicale et la santé de l'enfant à la naissance"  
+      group :show_profil_medicament do
+        label "Traitements médicamenteux"
+        help "Corticoïde, antihistaminique, antiépiléptique..."
+        field :corticoide
+        field :antihistaminique
+        field :antiepileptique
+      end
+      group :edit_profil_antecedent do
+        label "Antécedents"
+        help "Moyens de contactDiabète, cholestérol, hypertension, maladies cardiovasculaires..."
+        field :antecedents
+      end
+      group :show_profil_natalite do
+        label "Natalité"
+        help "Informations sur le suivi médical et la santé de l'enfant à la naissance"  
         field :info_naissance_pp do
           label "Information relative à la naissance"
         end
@@ -644,6 +654,11 @@ RailsAdmin.config do |config|
         field :info_obesite_pp do
           label "Histoire de l'obésité"
         end
+      end 
+      group :show_profil_bilan_sanguins do
+        label "Bilan sanguin"
+        help "Biochimie sanguine (Glycémie, Tryglycérides, Choléstérol, HDL, LDL, T4L, TSH)"
+        field :bilan_sanguins
       end
       group :show_profil_mesures do
         label "Mesure anthropométriques"
@@ -691,11 +706,26 @@ RailsAdmin.config do |config|
           end
         end
       end
-      
     end
-    
   end
   
+  config.model Objectif do
+    visible do
+      false
+    end
+    navigation_label 'Autres'
+    object_label_method do
+      :objectif_type
+    end
+    configure :objectivable do
+      visible false
+    end
+    edit do
+      field :objectif_type
+      field :objectif
+      field :atteint
+    end
+  end
   
   config.model Questionnaire do
     navigation_label 'Paramètres'
@@ -735,20 +765,65 @@ RailsAdmin.config do |config|
     end
   end
   
-  config.model User do
-    navigation_label 'Ressources humaines'
-    list do
-      field :last_name
-      field :first_name
-      field :role
-    end
+  config.model SeanceEnfant do
+    navigation_label 'Éducation thérapeutique'
     edit do
-      field :first_name
-      field :last_name
-      field :role
-      field :email
-      field :password
-      field :password_confirmation
+      field :date_of_seance
+      field :groupe_enfant
+      field :theme
+      field :profils do
+        associated_collection_scope do
+          # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+          seance_enfant = bindings[:object]
+          Proc.new { |scope|
+            # scoping all Players currently, let's limit them to the team's league
+            # Be sure to limit if there are a lot of Players and order them by position
+            scope = scope.where(groupe_enfant_id: seance_enfant.groupe_enfant) if seance_enfant.present?
+            scope = scope.order('profils.last_name DESC')
+          }
+        end
+      end
+      field :comments
+    end
+    show do
+      field :date_of_seance
+      field :groupe_enfant
+      field :theme
+      field :profils
+      field :info_comments_pp do
+        label "Commentaires"
+      end
+    end
+  end
+   
+  config.model SeanceParent do
+    navigation_label 'Éducation thérapeutique'
+    edit do
+      field :date_of_seance
+      field :groupe_parent
+      field :theme
+      field :tuteurs do
+        associated_collection_scope do
+          # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+          seance_parent = bindings[:object]
+          Proc.new { |scope|
+            # scoping all Players currently, let's limit them to the team's league
+            # Be sure to limit if there are a lot of Players and order them by position
+            scope = scope.where(groupe_parent_id: seance_parent.groupe_parent) if seance_parent.present?
+            scope = scope.order('parents.last_name DESC')
+          }
+        end
+      end
+      field :comments
+    end
+    show do
+      field :date_of_seance
+      field :groupe_parent
+      field :theme
+      field :tuteurs
+      field :info_comments_pp do
+        label "Commentaires"
+      end
     end
   end
   
@@ -769,8 +844,15 @@ RailsAdmin.config do |config|
         field :tuteur_type
         field :last_name
         field :first_name
+        field :birthdate
         field :profession
         field :groupe_parent
+      end
+      group :edit_tuteur_mesure do
+        active false
+        label "Mesure anthropométriques"
+        help "Collecte de données du carnet de santé"
+        field :tuteur_mesures
       end
       group :edit_tuteur_patients do
         active do
@@ -795,6 +877,7 @@ RailsAdmin.config do |config|
         label "Informations de base"
         help "Renseigements principaux"
         field :name
+        field :birthdate
         field :profession
         field :groupe_parent
       end
@@ -802,6 +885,14 @@ RailsAdmin.config do |config|
         label "Enfants à charge"
         help "Gestion des enfants à charge de ce parent"
         field :profils
+      end
+      group :show_tuteur_mesure do
+        active false
+        label "Mesure anthropométriques"
+        help "Collecte de données du carnet de santé"
+        field :info_mesures_pp do
+          label "Mesures"
+        end
       end
       group :show_tuteur_seances do
         label "Séance d'éducation thérapeutique"
@@ -820,6 +911,23 @@ RailsAdmin.config do |config|
     end
   end
   
+  config.model User do
+    navigation_label 'Ressources humaines'
+    list do
+      field :last_name
+      field :first_name
+      field :role
+    end
+    edit do
+      field :first_name
+      field :last_name
+      field :role
+      field :email
+      field :password
+      field :password_confirmation
+    end
+  end
+  
   config.model Zip do
     navigation_label 'Paramètres'
     edit do
@@ -828,22 +936,6 @@ RailsAdmin.config do |config|
     end
   end
   
-  config.model Objectif do
-    visible do
-      false
-    end
-    navigation_label 'Autres'
-    object_label_method do
-      :objectif_type
-    end
-    configure :objectivable do
-      visible false
-    end
-    edit do
-      field :objectif_type
-      field :objectif
-      field :atteint
-    end
-  end
+  
 end
 

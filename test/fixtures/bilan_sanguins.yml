@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date_of_bilan: MyString
+  glycemie: MyString
+  tryglycerides: MyString
+  cholesterol: MyString
+
+two:
+  date_of_bilan: MyString
+  glycemie: MyString
+  tryglycerides: MyString
+  cholesterol: MyString

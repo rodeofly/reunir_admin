@@ -7,7 +7,7 @@ class Comment < ActiveRecord::Base
       'Activité artistique',
       'Orienté vers Réunir par',
       'Habitudes alimentaires',
-      'Divers',
+      'Relation avec les camarades',
       'Comportement psychologique',
       'Obésité => Facteurs déclenchant',
       'Obésité => Prise en charge antérieure',

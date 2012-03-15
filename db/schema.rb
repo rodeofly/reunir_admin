@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120309044501) do
+ActiveRecord::Schema.define(:version => 20120315054146) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type"
@@ -23,6 +23,30 @@ ActiveRecord::Schema.define(:version => 20120309044501) do
     t.string   "addressable_type"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "antecedents", :force => true do |t|
+    t.string   "antecedent_type"
+    t.string   "parent"
+    t.integer  "antecedentable_id"
+    t.string   "antecedentable_type"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "bilan_sanguins", :force => true do |t|
+    t.date     "date_of_bilan"
+    t.string   "glycemie"
+    t.string   "tryglycerides"
+    t.string   "cholesterol"
+    t.string   "hdl"
+    t.string   "ldl"
+    t.string   "t4l"
+    t.string   "tsh"
+    t.integer  "bilanable_id"
+    t.string   "bilanable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "categories", :force => true do |t|
@@ -107,8 +131,6 @@ ActiveRecord::Schema.define(:version => 20120309044501) do
     t.integer  "tour_de_hanches"
     t.float    "z_score"
     t.string   "degre_obesite"
-    t.integer  "mesurable_id"
-    t.string   "mesurable_type"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -130,6 +152,19 @@ ActiveRecord::Schema.define(:version => 20120309044501) do
     t.string   "phonable_type"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "profil_mesures", :force => true do |t|
+    t.integer  "profil_id"
+    t.date     "date_of_mesure"
+    t.float    "poids"
+    t.float    "taille"
+    t.integer  "tour_de_taille"
+    t.integer  "tour_de_hanches"
+    t.float    "z_score"
+    t.string   "degre_obesite"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "profils", :force => true do |t|
@@ -154,18 +189,22 @@ ActiveRecord::Schema.define(:version => 20120309044501) do
     t.integer  "age_obesite"
     t.boolean  "facteur_declenchant"
     t.boolean  "prise_en_charge_anterieure"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
     t.boolean  "redoublement"
     t.string   "situation_maritale_des_parents"
     t.integer  "fratrie"
     t.integer  "rang_dans_la_fratrie"
+    t.integer  "fratrie_en_surpoids"
     t.integer  "habitant_du_foyer"
     t.string   "type_de_logement"
     t.integer  "television"
     t.integer  "ordinateur"
     t.boolean  "parabole"
     t.boolean  "internet"
+    t.string   "corticoide"
+    t.string   "antihistaminique"
+    t.string   "antiepileptique"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "profils_seance_enfants", :id => false, :force => true do |t|
@@ -228,10 +267,24 @@ ActiveRecord::Schema.define(:version => 20120309044501) do
     t.integer "tuteur_id"
   end
 
+  create_table "tuteur_mesures", :force => true do |t|
+    t.integer  "tuteur_id"
+    t.date     "date_of_mesure"
+    t.float    "poids"
+    t.float    "taille"
+    t.integer  "tour_de_taille"
+    t.integer  "tour_de_hanches"
+    t.float    "z_score"
+    t.string   "degre_obesite"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "tuteurs", :force => true do |t|
     t.string   "tuteur_type"
     t.string   "first_name"
     t.string   "last_name"
+    t.date     "birthdate"
     t.string   "profession"
     t.integer  "groupe_parent_id"
     t.datetime "created_at",       :null => false

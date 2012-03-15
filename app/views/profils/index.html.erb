@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>Nom</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,7 +10,7 @@
 
 <% @profils.each do |profil| %>
   <tr>
-    <td><%= profil.name %></td>
+    <td><%= profil.nom %></td>
     <td><%= link_to 'Show', profil %></td>
     <td><%= link_to 'Edit', edit_profil_path(profil) %></td>
     <td><%= link_to 'Destroy', profil, confirm: 'Are you sure?', method: :delete %></td>

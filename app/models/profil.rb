@@ -6,6 +6,7 @@ class Profil < ActiveRecord::Base
   
   has_and_belongs_to_many :medecins
   has_and_belongs_to_many :tuteurs
+  has_many :profil_mesures, :inverse_of => :profil
   
   belongs_to :school, :inverse_of => :profils
   belongs_to :user, :inverse_of => :profils
@@ -25,14 +26,17 @@ class Profil < ActiveRecord::Base
   has_many :comments, :as => :commentable, :dependent => :destroy
   accepts_nested_attributes_for :comments, :allow_destroy => true
   
-  has_many :mesures, :as => :mesurable, :dependent => :destroy
-  accepts_nested_attributes_for :mesures, :allow_destroy => true
+  has_many :bilan_sanguins, :as => :bilanable, :dependent => :destroy
+  accepts_nested_attributes_for :bilan_sanguins, :allow_destroy => true
   
   has_many :objectifs, :as => :objectivable, :dependent => :destroy
   accepts_nested_attributes_for :objectifs, :allow_destroy => true
   
   has_many :diagnostics, :as => :diagnosticable, :dependent => :destroy
   accepts_nested_attributes_for :diagnostics, :allow_destroy => true
+  
+  has_many :antecedents, :as => :antecedentable, :dependent => :destroy
+  accepts_nested_attributes_for :antecedents, :allow_destroy => true
   
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -56,7 +60,16 @@ class Profil < ActiveRecord::Base
   def degre_obesite_enum
     ['Normale', 'Surpoid', 'Obésité', 'Obésité morbide']
   end
-    
+  
+  def corticoide_enum
+    ['- de 1 mois', '- de 3 mois', '- de 1 an', 'Obésité morbide+ de 1 an']
+  end
+  def antihistaminique_enum
+    ['- de 1 mois', '- de 3 mois', '- de 1 an', 'Obésité morbide+ de 1 an']
+  end
+  def antiepileptique_enum
+    ['- de 1 mois', '- de 3 mois', '- de 1 an', 'Obésité morbide+ de 1 an']
+  end 
   def name
     profil = ""
     profil += !self.first_name.blank? ? self.first_name + " ": ""
@@ -194,6 +207,7 @@ class Profil < ActiveRecord::Base
     info_temp += !self.situation_maritale_des_parents.blank? ? "Situation des parents : " + self.situation_maritale_des_parents + "\n" : ""
     info_temp += !self.fratrie.blank? ? self.fratrie.to_s + " frère(s) et soeur(s)\n" : ""
     info_temp += !self.rang_dans_la_fratrie.blank? ? "Rang dans la fratrie : " + self.rang_dans_la_fratrie.to_s + "\n" : ""
+    info_temp += !self.fratrie_en_surpoids.blank? ? "Frère et soeur en surpoids : " + self.fratrie_en_surpoids.to_s + "\n" : ""
     info_temp += !self.habitant_du_foyer.blank? ? "Foyer composé de " + self.habitant_du_foyer.to_s + " personnes\n" : ""
     info_temp += !self.type_de_logement.blank? ? "Logement : " + self.type_de_logement + "\n" : ""
     info_temp += !self.television.blank? ? !self.television ? "Pas de télévision : " : self.television.to_s + " télévision(s)\n" : ""
@@ -205,7 +219,7 @@ class Profil < ActiveRecord::Base
   
   def info_mesures_pp
     info_all = []
-    self.mesures.each do |mesure|
+    self.profil_mesures.each do |mesure|
       info_all << mesure.pp
     end
     info_all.join("\n")

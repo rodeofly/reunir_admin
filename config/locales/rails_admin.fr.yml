@@ -46,6 +46,12 @@ fr:
       school:
         one: "école"
         other: "écoles"
+      seance_enfant:
+        one: "séance enfant"
+        other: "séances enfants"
+      seance_parent:
+        one: "séance parent"
+        other: "séances parents"
       tuteur:
         one: "parent"
         other: "parents"
@@ -138,6 +144,18 @@ fr:
         name: "Nom"
         zip: "Code Postal"
         schooltype: "Type"
+      seance_enfant:
+        date_of_seance: "Date de la séance"
+        groupe_enfant: "Groupe enfant"
+        profils: "Enfants présents"
+        theme: "Thème de séance"
+        comments: "Commentaires"
+      seance_parent:
+        date_of_seance: "Date de la séance"
+        groupe_parent: "Groupe parent"
+        tuteurs: "Parents présents"
+        theme: "Thème de séance"
+        comments: "Commentaires"
       tuteur:
         birthdate: "Date de naissance"
         tuteur_type: "Qualité"

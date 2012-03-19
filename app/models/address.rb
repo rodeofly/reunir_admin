@@ -4,7 +4,7 @@ class Address < ActiveRecord::Base
   belongs_to :zip
     
   def address_type_enum
-    ['Personnelle', 'Privée', 'Domicile', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre']
+    ['Domicile', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre']
   end
   
   def country_enum

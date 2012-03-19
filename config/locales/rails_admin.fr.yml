@@ -7,6 +7,12 @@ fr:
       address:
         one: "adresse"
         other: "adresses"
+      antecedent:
+        one: "antécédent"
+        other: "antécédents"
+      bilan_sanguin:
+        one: "bilan sanguin"
+        other: "bilans sanguins"
       category:
         one: "type de questionnaire"
         other: "types de questionnaire"
@@ -31,18 +37,25 @@ fr:
       profil:
         one: patient
         other: patients
+      profil_mesure:
+        one: "mesures enfant"
+        other: "mesures enfants"
       questionnaire:
         one: "questionnaire rempli"
         other: "questionnaires remplis"
       school:
         one: "école"
         other: "écoles"
-      user:
-        one: "éducateur thérapeutique"
-        other: "éducateurs thérapeutiques"
       tuteur:
         one: "parent"
         other: "parents"
+      tuteur_mesure:
+        one: "mesures parent"
+        other: "mesures parents"
+      user:
+        one: "éducateur thérapeutique"
+        other: "éducateurs thérapeutiques"
+      
       zip:
         one: "code postal"
         other: "codes postaux"
@@ -53,6 +66,18 @@ fr:
         line2: "Ligne 2"
         zip: "Code Postal"
         country: "Pays"
+      antecedent:
+        antecedent_type: "Type d'antécédent"
+        parent: "Parent atteint"
+      bilan_sanguin:
+        date_of_bilan: "Date du bilan"
+        glycemie: "Glycémie"
+        tryglycerides: "Tryglycérides"
+        cholesterol: "Cholestérol"
+        hdl: "HDL"
+        ldl: "LDL"
+        t4l: "T4L"
+        tsh: "TSH"
       category:
         name: "Nom"
       comment:
@@ -80,20 +105,28 @@ fr:
         addresses: "Adresses"
         comments: "Commentaires"
       profil:
-        first_name: "Prénom"
-        last_name: "Nom"
-        gender: "Genre"
-        birthdate: "Date de naissance"
-        school: "École"
-        classroom: "Classe"
-        user: "Éducateur"
-        emails: "Emails"
-        phones: "Téléphones"
-        tuteurs: "Responsables légaux"
         addresses: "Adresses"
-        groupe_enfant: "Groupe de l'enfant"     
-        medecin: "Médecin"
+        birthdate: "Date de naissance"
         comments: "Notes"
+        classroom: "Classe"
+        emails: "Emails"
+        first_name: "Prénom"
+        gender: "Genre"
+        groupe_enfant: "Groupe de l'enfant"     
+        last_name: "Nom"
+        phones: "Téléphones"
+        profil_mesures: "Mesures de l'enfant"
+        medecin: "Médecin"
+        name: "Nom"
+        ordinateur: "Nombre d'ordinateur"
+        school: "École"
+        tuteurs: "Responsables légaux"
+        television: "Nombre de télévision"
+        user: "Éducateur"
+
+      profil_mesure:
+        profil: "Parent"
+        date_of_mesure: "Date de la mesure"
       phone:
         phone_type: "Type"
         number: "Numéro"
@@ -106,6 +139,7 @@ fr:
         zip: "Code Postal"
         schooltype: "Type"
       tuteur:
+        birthdate: "Date de naissance"
         tuteur_type: "Qualité"
         first_name: "Prénom"
         last_name: "Nom"
@@ -115,7 +149,10 @@ fr:
         addresses: "Adresses"
         profils: "Enfants"
         comments: "Notes"
-
+        tuteur_mesures: "Mesures du parent"
+      tuteur_mesure:
+        tuteur: "Parent"
+        date_of_mesure: "Date de la mesure"
       user:
         first_name: "Prénom"
         last_name: "Nom"

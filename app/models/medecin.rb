@@ -23,10 +23,10 @@ class Medecin < ActiveRecord::Base
   end
   
   def name
-    user = ""
-    user += !self.specialty.blank? ? self.specialty + " ": ""
+    user = "Dr. "
     user += !self.first_name.blank? ? self.first_name + " ": ""
     user += !self.last_name.blank? ? self.last_name : ""
+    user += !self.specialty.blank? ? " (" + self.specialty + ")": ""
   end
 
   def org_member

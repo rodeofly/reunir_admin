@@ -4,7 +4,7 @@ class Email < ActiveRecord::Base
   validates_uniqueness_of :email
     
   def email_type_enum
-    ['Personnel', 'Privé', 'Domicile', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre']
+    ['Personnelle', 'Privée', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre']
   end
   
   def name

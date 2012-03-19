@@ -174,7 +174,19 @@ RailsAdmin.config do |config|
     
   end
   
+  config.model Antecedent do
+    visible do
+      false
+    end
+    configure :antecedentable do
+      visible false
+    end
+  end
+  
   config.model BilanSanguin do
+    visible do
+      false
+    end
     configure :bilanable do
       visible false
     end
@@ -344,74 +356,22 @@ RailsAdmin.config do |config|
       end
     end
   end
-  
-  config.model ProfilMesure do
+   
+  config.model Objectif do
+    visible do
+      false
+    end
     navigation_label 'Autres'
     object_label_method do
-      :date_of_mesure
+      :objectif_type
     end
-    configure :mesurable do
+    configure :objectivable do
       visible false
     end
-    list do
-      field :profil
-      field :date_of_mesure
-      field :imc
-      field :z_score
-      field :degre_obesite
-    end
     edit do
-      field :profil
-      field :date_of_mesure
-      field :poids do
-        help "en Kg"
-      end  
-      field :taille do
-        help "en cm"
-      end
-      field :tour_de_taille do
-        help "en cm"
-      end
-      field :tour_de_hanches do
-        help "en cm"
-      end
-      field :z_score
-      field :degre_obesite
-    end
-  end
-  
-  config.model TuteurMesure do
-    navigation_label 'Autres'
-    object_label_method do
-      :date_of_mesure
-    end
-    configure :mesurable do
-      visible false
-    end
-    list do
-      field :tuteur
-      field :date_of_mesure
-      field :imc
-      field :z_score
-      field :degre_obesite
-    end
-    edit do
-      field :tuteur
-      field :date_of_mesure
-      field :poids do
-        help "en Kg"
-      end  
-      field :taille do
-        help "en cm"
-      end
-      field :tour_de_taille do
-        help "en cm"
-      end
-      field :tour_de_hanches do
-        help "en cm"
-      end
-      field :z_score
-      field :degre_obesite
+      field :objectif_type
+      field :objectif
+      field :atteint
     end
   end
   
@@ -708,22 +668,39 @@ RailsAdmin.config do |config|
       end
     end
   end
-  
-  config.model Objectif do
-    visible do
-      false
-    end
+ 
+  config.model ProfilMesure do
     navigation_label 'Autres'
     object_label_method do
-      :objectif_type
+      :date_of_mesure
     end
-    configure :objectivable do
+    configure :mesurable do
       visible false
     end
+    list do
+      field :profil
+      field :date_of_mesure
+      field :imc
+      field :z_score
+      field :degre_obesite
+    end
     edit do
-      field :objectif_type
-      field :objectif
-      field :atteint
+      field :profil
+      field :date_of_mesure
+      field :poids do
+        help "en Kg"
+      end  
+      field :taille do
+        help "en cm"
+      end
+      field :tour_de_taille do
+        help "en cm"
+      end
+      field :tour_de_hanches do
+        help "en cm"
+      end
+      field :z_score
+      field :degre_obesite
     end
   end
   
@@ -750,7 +727,7 @@ RailsAdmin.config do |config|
       end
     end
   end
-  
+ 
   config.model School do
     navigation_label 'Paramètres'
     list do
@@ -910,13 +887,49 @@ RailsAdmin.config do |config|
       end
     end
   end
-  
+   
+  config.model TuteurMesure do
+    navigation_label 'Autres'
+    object_label_method do
+      :date_of_mesure
+    end
+    configure :mesurable do
+      visible false
+    end
+    list do
+      field :tuteur
+      field :date_of_mesure
+      field :imc
+      field :z_score
+      field :degre_obesite
+    end
+    edit do
+      field :tuteur
+      field :date_of_mesure
+      field :poids do
+        help "en Kg"
+      end  
+      field :taille do
+        help "en cm"
+      end
+      field :tour_de_taille do
+        help "en cm"
+      end
+      field :tour_de_hanches do
+        help "en cm"
+      end
+      field :z_score
+      field :degre_obesite
+    end
+  end
+ 
   config.model User do
     navigation_label 'Ressources humaines'
     list do
       field :last_name
       field :first_name
       field :role
+      field :email
     end
     edit do
       field :first_name

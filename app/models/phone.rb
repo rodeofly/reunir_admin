@@ -6,7 +6,7 @@ class Phone < ActiveRecord::Base
 
 
   def phone_type_enum
-    ['Personnel', 'Privé', 'Domicile', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre']
+    ['Domicile', 'Mobile', 'Bureau', 'Père', 'Mère', 'Enfant']
   end
   
   def name

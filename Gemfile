@@ -37,8 +37,7 @@ gem "googlecharts", :require => "gchart"
 gem "google_visualr", ">= 2.1"
 gem "dotiw",  :git => 'git://github.com/radar/dotiw'
 #bundle exec rails generate paper_trail:install
-
-#gem "rails_admin_import", :git => "git://github.com/stephskardal/demo.git"
+#gem "rails_admin_import", :git => "https://github.com/stephskardal/rails_admin_import.git"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -123,6 +123,7 @@ RailsAdmin.config do |config|
   #    end 
   #  end
   #end
+  
   RailsAdmin.config do |config|
     config.actions do
       # root actions
@@ -133,13 +134,13 @@ RailsAdmin.config do |config|
       export
       history_index
       bulk_delete
-      collection :statistique, :base do
-        controller do 
-          Proc.new do
-            render :partial => "render_stats", :locals => { :objects => list_entries}
-          end  
-        end 
-      end
+      #collection :statistique, :base do
+      #  controller do 
+      #    Proc.new do
+      #      render :partial => "render_stats", :locals => { :objects => list_entries}
+      #    end  
+      #  end 
+      #end
       # member actions
       show
       edit
@@ -153,7 +154,7 @@ RailsAdmin.config do |config|
     visible do
       false
     end
-    navigation_label 'Autres'
+    navigation_label 'Polymorphic'
     object_label_method do
       :address_type
     end
@@ -213,7 +214,7 @@ RailsAdmin.config do |config|
     visible do
       false
     end
-    navigation_label 'Autres'
+    navigation_label 'Polymorphic'
     configure :commentable do
       visible false
     end
@@ -223,7 +224,7 @@ RailsAdmin.config do |config|
     visible do
       false
     end
-    navigation_label 'Autres'
+    navigation_label 'Polymorphic'
     configure :diagnosticable do
       visible false
     end
@@ -233,7 +234,7 @@ RailsAdmin.config do |config|
     visible do
       false
     end
-    navigation_label 'Autres'
+    navigation_label 'Polymorphic'
     object_label_method do
       :email_type
     end
@@ -361,7 +362,7 @@ RailsAdmin.config do |config|
     visible do
       false
     end
-    navigation_label 'Autres'
+    navigation_label 'Polymorphic'
     object_label_method do
       :objectif_type
     end
@@ -670,7 +671,7 @@ RailsAdmin.config do |config|
   end
  
   config.model ProfilMesure do
-    navigation_label 'Autres'
+    navigation_label 'Mesures Anthropométriques'
     object_label_method do
       :date_of_mesure
     end
@@ -889,7 +890,7 @@ RailsAdmin.config do |config|
   end
    
   config.model TuteurMesure do
-    navigation_label 'Autres'
+    navigation_label 'Polymorphics'
     object_label_method do
       :date_of_mesure
     end

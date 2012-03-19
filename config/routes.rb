@@ -1,14 +1,14 @@
 ReunirAdmin::Application.routes.draw do
-  match "/csv-to-json/id/:id/sid/:sid" => "CsvToJson#show"
-  
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  devise_for :users
+
   resources :filiations
 
   resources :enfants
 
   resources :parents
 
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-
+  
   resources :zips
 
   resources :groupe_parents
@@ -25,14 +25,11 @@ ReunirAdmin::Application.routes.draw do
 
   resources :categories
 
-  resources :profils
-
-  devise_for :users
+  resources :profils  
   
-  
-
-
   root :to => "home#index"
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

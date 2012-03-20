@@ -9,6 +9,7 @@ class CreateProfilMesures < ActiveRecord::Migration
       t.integer :tour_de_hanches
       t.float :z_score
       t.string :degre_obesite
+      t.integer :position
       t.timestamps
     end
   end

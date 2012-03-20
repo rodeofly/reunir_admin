@@ -74,17 +74,18 @@ begin
         :corticoide =>     ['jamais', '- de 1 mois', '- de 3 mois', '- de 1 an', '+ de 1 an'].sample,
         :antihistaminique =>     ['jamais', '- de 1 mois', '- de 3 mois', '- de 1 an', '+ de 1 an'].sample,
         :antiepileptique =>     ['jamais', '- de 1 mois', '- de 3 mois', '- de 1 an', '+ de 1 an'].sample
-        Profil.all.each do |enfant|
-          5.times do
-            ProfilMesure.create! :date_of_mesure => rand(18.years).ago,
-            :poids => Forgery(:basic).number(:at_least => 10, :at_most => 100),
-            :taille => Forgery(:basic).number(:at_least => 100, :at_most => 180),
-            :tour_de_taille  => Forgery(:basic).number(:at_least => 60, :at_most => 120),
-            :tour_de_hanches  => Forgery(:basic).number(:at_least => 60, :at_most => 120),
-            :z_score  => Forgery(:basic).number(:at_least => 20, :at_most => 50),
-            :degre_obesite => ['normal', 'corrigé', 'surpoids', 'obésité', 'obésité sévère', 'obésité morbide'].sample,
-            :profil_id => enfant.id
-          end
+      end
+      
+      Profil.all.each do |enfant|
+        5.times do
+          ProfilMesure.create! :date_of_mesure => rand(18.years).ago,
+          :poids => Forgery(:basic).number(:at_least => 10, :at_most => 100),
+          :taille => Forgery(:basic).number(:at_least => 100, :at_most => 180),
+          :tour_de_taille  => Forgery(:basic).number(:at_least => 60, :at_most => 120),
+          :tour_de_hanches  => Forgery(:basic).number(:at_least => 60, :at_most => 120),
+          :z_score  => Forgery(:basic).number(:at_least => 20, :at_most => 50),
+          :degre_obesite => ['normal', 'corrigé', 'surpoids', 'obésité', 'obésité sévère', 'obésité morbide'].sample,
+          :profil_id => enfant.id
         end
       end
     end  

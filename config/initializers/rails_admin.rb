@@ -10,7 +10,8 @@ RailsAdmin.config do |config|
   # If your default_local is different from :en, uncomment the following 2 lines and set your default locale here:
   require 'i18n'
   I18n.default_locale = :fr
-
+  require "i18n/backend/fallbacks" 
+  I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
   config.current_user_method { current_user } # auto-generated
   
   # If you want to track changes on your models:
@@ -503,7 +504,9 @@ RailsAdmin.config do |config|
         active false
         label "Mesure anthropométriques"
         help "Collecte de données du carnet de santé"
-        field :profil_mesures
+        field :profil_mesures do
+          orderable true
+        end
       end    
       group :show_profil_bilans do
         active false

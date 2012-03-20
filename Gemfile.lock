@@ -23,13 +23,6 @@ GIT
       remotipart (~> 1.0)
       sass-rails (~> 3.1)
 
-GIT
-  remote: https://github.com/stephskardal/rails_admin_import.git
-  revision: 59108b8259cd07336a3df53f750acb9ed54bf16a
-  specs:
-    rails_admin_import (0.0.1)
-      rails (~> 3.2.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -83,6 +76,7 @@ GEM
     erubis (2.7.0)
     execjs (1.3.0)
       multi_json (~> 1.0)
+    forgery (0.5.0)
     google_visualr (2.1.2)
     googlecharts (1.6.8)
     haml (3.1.4)
@@ -192,6 +186,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   dotiw!
+  forgery (= 0.5.0)
   google_visualr (>= 2.1)
   googlecharts
   jquery-rails
@@ -202,7 +197,6 @@ DEPENDENCIES
   rails (= 3.2.1)
   rails-erd
   rails_admin!
-  rails_admin_import!
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer

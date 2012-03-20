@@ -179,6 +179,10 @@ fr:
         password: "Mot de passe"
         remember_me: "Se souvenir de moi"
         role: "Rôle"
+        sign_in: "Se connecter"
+        sign_up: "S'enregistrer"
+        log_out: "Déconnexion"
+        forgot_your_password: "Mot de passe oublié"
       zip:
         zipcode: "Code Postal"
         city: "Ville"
@@ -189,10 +193,25 @@ fr:
       last_word_connector: " et "
   time:
     formats:
-      short: "arrrround %H'ish"
+      short: "vers %H'or"
       long: "%A %d %B %Y à %Hh%I"
+  seconds: "secondes"
+  minutes: "minutes"
+  hours: "heures"
+  days: "jours"
+  weeks: "semaines"
+  months: "mois"
+  years: "années"   
   datetime:
-    distance_in_words: 
+    distance_in_words:
+      about_x_years:
+        one: "about 1 year"
+        many: "about %{count} years"         
+  number:
+      format:
+        separator: "."
+  datetime:
+    distance_in_words:
       about_x_hours:
         one: "il y a %{count} heure"
         other: "il y a %{count} heures"
@@ -201,7 +220,7 @@ fr:
         other: "il y a %{count} minutes"
       x_days:
         one: "il y a %{count} jour"
-        other: "il y a %{count} jours"
+    other: "il y a %{count} jours"
   home:
     name: Home
   views:
@@ -228,7 +247,7 @@ fr:
       log_out: "Log out"
       ago: ""
     flash:
-      successful: "%{name} a été %{action} avec succès"
+      successful: "%{name} : %{action} avec succès"
       error: "%{name} n'a pas pu être %{action}"
       noaction: "Aucune action !"
       model_not_found: "Le model '%{model}' n'a pas été trouvé"
@@ -268,19 +287,19 @@ fr:
         menu: "Nouveau"
         breadcrumb: "Nouveau"
         link: "Ajouter un(e) %{model_label}"
-        done: "créé(e)"
+        done: "création effectuée"
       edit:
         title: "Édition %{model_label} '%{object_label}'"
         menu: "Édition"
         breadcrumb: "Édition"
         link: "Éditer ce(tte) %{model_label}"
-        done: "modifié(e)"
+        done: "modification effectuée"
       delete:
         title: "Suppression %{model_label} '%{object_label}'"
         menu: "Supprimer"
         breadcrumb: "Suppression"
         link: "Supprimer '%{object_label}'"
-        done: "supprimé(e)"
+        done: "suppression effectuée"
       bulk_delete:
         title: "Suppression de %{model_label_plural}"
         menu: "Délétion multiple"
@@ -292,7 +311,7 @@ fr:
         breadcrumb: "Export"
         link: "Export des %{model_label_plural} trouvé(e)s"
         bulk_link: "Exporter les %{model_label_plural} sélectionné(e)s"
-        done: "exporté(e)s"
+        done: "exportation effectuées"
       history_index:
         title: "Historique des %{model_label_plural}"
         menu: "Historique"

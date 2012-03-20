@@ -2,7 +2,7 @@
 class Email < ActiveRecord::Base
   belongs_to :emailable, :polymorphic => true
   validates_uniqueness_of :email
-    
+
   def email_type_enum
     ['Personnelle', 'Privée', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre']
   end

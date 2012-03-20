@@ -24,6 +24,7 @@ gem 'jquery-rails'
 
 group :development do
   gem "rails-erd"
+  gem 'forgery', '0.5.0'
 end
 #Added by Florian
 gem "paperclip"
@@ -36,6 +37,7 @@ gem "prawn"
 gem "googlecharts", :require => "gchart"
 gem "google_visualr", ">= 2.1"
 gem "dotiw",  :git => 'git://github.com/radar/dotiw'
+
 #bundle exec rails generate paper_trail:install
 #gem "rails_admin_import", :git => "https://github.com/stephskardal/rails_admin_import.git"
 # To use ActiveModel has_secure_password

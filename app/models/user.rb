@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -12,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :profils, :inverse_of => :user
   
   def role_enum
-    %w[admin educateur]
+    ["Administrateur", "Éducateur"]
   end
 
   def role?(role)

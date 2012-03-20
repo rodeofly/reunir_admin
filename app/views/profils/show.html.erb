@@ -34,29 +34,8 @@
         chart.draw(data, options);
       }
     </script>
-    <script type='text/javascript'>
-      google.load('visualization', '1', {'packages':['annotatedtimeline']});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', 'Date');
-        data.addColumn('number', 'Taille (cm)');
-        data.addColumn('number', 'Poids (cm)');
-        data.addColumn('number', 'Tour de taille (cm)');
-        data.addColumn('number', 'Tour de hanches (cm)');
-        data.addColumn('number', 'z_score');
-        data.addColumn('number', 'IMC (Kg/cm²)');
-        
-        
-        data.addRows(<%= h(mesure_timeline_data).gsub("&quot;","") %>);
-
-        var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart2_div'));
-        chart.draw(data, {displayAnnotations: true});
-      }
-    </script>
     
   <div id="chart_div" style="width: 100%; height: 500px;"></div>
-  <div id="chart2_div" style='width: 100%; height: 500px;'></div>
   
   
 

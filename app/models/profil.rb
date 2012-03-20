@@ -62,13 +62,13 @@ class Profil < ActiveRecord::Base
   end
   
   def corticoide_enum
-    ['- de 1 mois', '- de 3 mois', '- de 1 an', 'Obésité morbide+ de 1 an']
+    ['jamais', '- de 1 mois', '- de 3 mois', '- de 1 an', '+ de 1 an']
   end
   def antihistaminique_enum
-    ['- de 1 mois', '- de 3 mois', '- de 1 an', 'Obésité morbide+ de 1 an']
+    ['jamais', '- de 1 mois', '- de 3 mois', '- de 1 an', '+ de 1 an']
   end
   def antiepileptique_enum
-    ['- de 1 mois', '- de 3 mois', '- de 1 an', 'Obésité morbide+ de 1 an']
+    ['jamais', '- de 1 mois', '- de 3 mois', '- de 1 an', '+ de 1 an']
   end 
   def name
     profil = ""

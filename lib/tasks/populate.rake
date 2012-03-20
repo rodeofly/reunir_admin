@@ -33,6 +33,10 @@ begin
       end
       
       5.times do
+        GroupeParent.create! :name => Forgery::Address.city
+      end
+      
+      5.times do
         g_sample = ['Masculin', 'Féminin'].sample
         if g_sample == 'Masculin'
           first_name_sample = Forgery::Name.male_first_name
@@ -87,7 +91,17 @@ begin
           :degre_obesite => ['normal', 'corrigé', 'surpoids', 'obésité', 'obésité sévère', 'obésité morbide'].sample,
           :profil_id => enfant.id
         end
+        
+        ['Père', 'Mère', 'Grands-parents'].each do |parent|
+          if (rand(1))
+            Antecedent.create! :antecedent_type => ['Diabète', 'Hyper choléstérol', 'Hypertension', 'Maladies cardiovascilulaire'].sample,
+            :parent => parent,
+            :antecedentable_id => enfant.id,
+            :antecedentable_type => "Profil"
+          end
+        end
       end
+      
     end  
   end  
 rescue LoadError  

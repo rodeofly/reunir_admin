@@ -460,7 +460,7 @@ RailsAdmin.config do |config|
       group :edit_profil_antecedent do
         active false
         label "Antécedents"
-        help "Moyens de contactDiabète, cholestérol, hypertension, maladies cardiovasculaires..."
+        help "Diabète, cholestérol, hypertension, maladies cardiovasculaires..."
         field :antecedents
       end
       group :edit_profil_natalite do
@@ -600,9 +600,9 @@ RailsAdmin.config do |config|
         field :antihistaminique
         field :antiepileptique
       end
-      group :edit_profil_antecedent do
+      group :show_profil_antecedent do
         label "Antécedents"
-        help "Moyens de contactDiabète, cholestérol, hypertension, maladies cardiovasculaires..."
+        help "Diabète, cholestérol, hypertension, maladies cardiovasculaires..."
         field :antecedents
       end
       group :show_profil_natalite do

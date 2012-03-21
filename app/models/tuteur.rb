@@ -18,7 +18,7 @@ class Tuteur < ActiveRecord::Base
   end
   
   def profession_enum
-    ['agriculteur exploitant (secteur primaire)' ,'artisan, commerçant ou chef d\'entreprise' ,'cadre ou profession intellectuelle supérieure' ,'profession intermédiaire' ,'employé' ,'ouvrier' ,'retraité' ,'sans activité professionnelle' ]
+    ['agriculteur exploitant (secteur primaire)' ,'artisan, commerçant ou entrepreneur' ,'cadre ou profession intellectuelle supérieure' ,'profession intermédiaire' ,'employé' ,'ouvrier' ,'retraité' ,'sans activité professionnelle' ]
   end
   
   def name

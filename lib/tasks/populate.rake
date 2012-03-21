@@ -1,5 +1,6 @@
 # encoding: UTF-8
-begin  
+begin
+  n_profil = 50
   namespace :db do  
     desc "Populate the development database with some fake data"  
     task :populate => :environment do  
@@ -41,7 +42,7 @@ begin
         :last_name => Forgery::Name.last_name,
         :tuteur_type => "Père",
         :birthdate => rand(60.years).ago,
-        :profession => ['agriculteur exploitant (secteur primaire)' ,'artisan, commerçant ou chef d\'entreprise' ,'cadre ou profession intellectuelle supérieure' ,'profession intermédiaire' ,'employé' ,'ouvrier' ,'retraité' ,'sans activité professionnelle' ].sample,
+        :profession => ['agriculteur exploitant (secteur primaire)' ,'artisan, commerçant ou entrepreneur' ,'cadre ou profession intellectuelle supérieure' ,'profession intermédiaire' ,'employé' ,'ouvrier' ,'retraité' ,'sans activité professionnelle' ].sample,
         :groupe_parent => GroupeParent.all.sample
       end
       
@@ -54,7 +55,7 @@ begin
         :groupe_parent => GroupeParent.all.sample
       end
       
-      5.times do
+      n_profil.times do
         g_sample = ['Masculin', 'Féminin'].sample
         if g_sample == 'Masculin'
           first_name_sample = Forgery::Name.male_first_name

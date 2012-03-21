@@ -245,7 +245,7 @@ fr:
       ago: ""
     flash:
       successful: "%{name} : %{action} avec succès"
-      error: "%{name} n'a pas pu être %{action}"
+      error: "%{name} : pas de %{action}"
       noaction: "Aucune action !"
       model_not_found: "Le model '%{model}' n'a pas été trouvé"
       object_not_found: "%{model} avec id '%{id}' n'a pas été trouvé"

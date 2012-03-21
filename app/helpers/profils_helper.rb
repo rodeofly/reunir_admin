@@ -29,6 +29,7 @@ module ProfilsHelper
   
   def render_csv
     header = [:nom,
+              :genre,
               :age,
               :ecole,
               :classe,
@@ -84,15 +85,16 @@ module ProfilsHelper
       
       profil.tuteurs.each do |tuteur|
         if tuteur.tuteur_type=="Père"
-          profession_pere = !tuteur.profession? ? tuteur.profession : "none"
-          obesite_pere = !tuteur.tuteur_mesures? ? !tuteur.tuteur_mesures.last.degre_obesite? ? tuteur.tuteur_mesures.last.degre_obesite : "none" : "none"
+          profession_pere = tuteur.profession? ? tuteur.profession : "none"
+          obesite_pere = tuteur.tuteur_mesures.presence ? tuteur.tuteur_mesures.last.degre_obesite? ? tuteur.tuteur_mesures.last.degre_obesite : "none" : "none"
         end
         if tuteur.tuteur_type=="Mère"
-          profession_mere = !tuteur.profession? ? tuteur.profession : "none"
-          obesite_mere = !tuteur.tuteur_mesures? ? !tuteur.tuteur_mesures.last.degre_obesite? ? tuteur.tuteur_mesures.last.degre_obesite : "none" : "none"
+          profession_mere = tuteur.profession? ? tuteur.profession : "none"
+          obesite_mere = tuteur.tuteur_mesures.presence ? tuteur.tuteur_mesures.last.degre_obesite? ? tuteur.tuteur_mesures.last.degre_obesite : "none" : "none"
         end
       end
       lines << [profil.name,
+              profil.gender? ? profil.gender : "none",
               profil.age,
               profil.school.presence ? profil.school.name : "none",
               profil.classroom? ? profil.classroom : "none",

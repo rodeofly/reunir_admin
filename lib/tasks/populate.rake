@@ -37,6 +37,24 @@ begin
       end
       
       5.times do
+        Tuteur.create! :first_name => Forgery::Name.first_name, 
+        :last_name => Forgery::Name.last_name,
+        :tuteur_type => "Père",
+        :birthdate => rand(60.years).ago,
+        :profession => ['agriculteur exploitant (secteur primaire)' ,'artisan, commerçant ou chef d\'entreprise' ,'cadre ou profession intellectuelle supérieure' ,'profession intermédiaire' ,'employé' ,'ouvrier' ,'retraité' ,'sans activité professionnelle' ].sample,
+        :groupe_parent => GroupeParent.all.sample
+      end
+      
+      5.times do
+        Tuteur.create! :first_name => Forgery::Name.first_name, 
+        :last_name => Forgery::Name.last_name,
+        :tuteur_type => "Mère",
+        :birthdate => rand(60.years).ago,
+        :profession => ['agriculteur exploitant (secteur primaire)' ,'artisan, commerçant ou chef d\'entreprise' ,'cadre ou profession intellectuelle supérieure' ,'profession intermédiaire' ,'employé' ,'ouvrier' ,'retraité' ,'sans activité professionnelle' ].sample,
+        :groupe_parent => GroupeParent.all.sample
+      end
+      
+      5.times do
         g_sample = ['Masculin', 'Féminin'].sample
         if g_sample == 'Masculin'
           first_name_sample = Forgery::Name.male_first_name
@@ -80,7 +98,23 @@ begin
         :antiepileptique =>     ['jamais', '- de 1 mois', '- de 3 mois', '- de 1 an', '+ de 1 an'].sample
       end
       
+      Tuteur.all.each do |parent|
+        5.times do
+          TuteurMesure.create! :date_of_mesure => rand(18.years).ago,
+          :poids => Forgery(:basic).number(:at_least => 10, :at_most => 100),
+          :taille => Forgery(:basic).number(:at_least => 100, :at_most => 180),
+          :tour_de_taille  => Forgery(:basic).number(:at_least => 60, :at_most => 120),
+          :tour_de_hanches  => Forgery(:basic).number(:at_least => 60, :at_most => 120),
+          :z_score  => Forgery(:basic).number(:at_least => 20, :at_most => 50),
+          :degre_obesite => ['normal', 'corrigé', 'surpoids', 'obésité', 'obésité sévère', 'obésité morbide'].sample,
+          :tuteur_id => parent.id
+        end
+      end
+      
       Profil.all.each do |enfant|
+        enfant.tuteurs << Tuteur.where(:tuteur_type => 'Père').sample
+        enfant.tuteurs << Tuteur.where(:tuteur_type => 'Mère').sample
+        enfant.medecin << Tuteur.all.sample
         5.times do
           ProfilMesure.create! :date_of_mesure => rand(18.years).ago,
           :poids => Forgery(:basic).number(:at_least => 10, :at_most => 100),

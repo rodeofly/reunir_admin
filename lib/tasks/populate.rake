@@ -134,7 +134,7 @@ begin
         end
         
         2.times do
-          Phone.create! :phone_type => ['Personnelle', 'Privée', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre'].sample,
+          Phone.create! :phone_type => ['Domicile', 'Mobile', 'Bureau', 'Père', 'Mère', 'Enfant'].sample,
           :number => Forgery(:address).phone,
           :phonable_id => enfant.id,
           :phonable_type => "Profil"

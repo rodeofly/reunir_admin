@@ -1,7 +1,4 @@
 fr:
-  users:
-    sign_up: "Siaagn up"
-    sign_in: "Sigaan in"
   activerecord:
     models:   
       address:
@@ -131,7 +128,7 @@ fr:
         user: "Éducateur"
 
       profil_mesure:
-        profil: "Parent"
+        profil: "Enfant"
         date_of_mesure: "Date de la mesure"
       phone:
         phone_type: "Type"

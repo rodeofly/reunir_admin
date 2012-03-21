@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320094235) do
+ActiveRecord::Schema.define(:version => 20120315054146) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type"
@@ -163,9 +163,9 @@ ActiveRecord::Schema.define(:version => 20120320094235) do
     t.integer  "tour_de_hanches"
     t.float    "z_score"
     t.string   "degre_obesite"
+    t.integer  "position"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.integer  "position"
   end
 
   create_table "profils", :force => true do |t|

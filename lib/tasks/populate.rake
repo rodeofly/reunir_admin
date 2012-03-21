@@ -92,6 +92,30 @@ begin
           :profil_id => enfant.id
         end
         
+        2.times do
+          Email.create! :email_type => ['Personnelle', 'Privée', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre'].sample,
+          :email => Forgery::Internet.email_address,
+          :emailable_id => enfant.id,
+          :emailable_type => "Profil"
+        end
+        
+        2.times do
+          Phone.create! :phone_type => ['Personnelle', 'Privée', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre'].sample,
+          :number => Forgery(:address).phone,
+          :phonable_id => enfant.id,
+          :phonable_type => "Profil"
+        end
+        
+        2.times do
+          Address.create! :address_type => ['Domicile', 'Bureau', 'Père', 'Mère', 'Enfant', 'Autre'].sample,
+          :line1 => Forgery(:address).street_address,
+          :line2 => Forgery(:address).province,
+          :zip_id => Zip.find(:all, :select => 'id').map(&:id).sample,
+          :country => Forgery(:address).country,
+          :addressable_id => enfant.id,
+          :addressable_type => "Profil"
+        end
+        
         ['Père', 'Mère', 'Grands-parents'].each do |parent|
           if (rand(1))
             Antecedent.create! :antecedent_type => ['Diabète', 'Hyper choléstérol', 'Hypertension', 'Maladies cardiovascilulaire'].sample,
@@ -101,7 +125,6 @@ begin
           end
         end
       end
-      
     end  
   end  
 rescue LoadError  

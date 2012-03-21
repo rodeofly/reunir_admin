@@ -1,26 +1,29 @@
 @media print {
   body.rails_admin {
+    margin-top: 0px;
     padding-top: 0px;
   }
-  .fieldset
-  {
+  div {
+    
+  }
+  div .fieldset {
     border : solid black 2px;
     margin : 5px;
     padding :5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-  }
+    page-break-inside: avoid;
+  } 
   h1 {
     font-size: 15px;
   }
-  
-  div .page-header{
-    background-image: url(logo.png);
+  .page-header {
     background-repeat: no-repeat;
     background-position: center top;
     padding-top:68px;
-  }
+    
+  }  
   
   .label {
     margin : 0px;  
@@ -38,8 +41,12 @@
   pre.prettyprint {
     margin : 0px;
     color : black;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -o-hyphens: auto;
+    hyphens: auto;
   }
-  
   dt {
     padding : 0px 10px 0px 5px !important;
     float : left;
@@ -47,17 +54,14 @@
   }  
   dt:after {
     content: " :";
-  }
-  
+  }  
   a {
     color: black;
     text-decoration: none;
   }
-
   .navbar-fixed-top {
     display: none;
-  }
-  
+  }  
   .breadcrumb {
     display: none;
   }
@@ -66,8 +70,7 @@
   }
   .row-fluid .span3 {
   display: none;
-  }
-  
+  } 
   footer {
     display: none;
   }

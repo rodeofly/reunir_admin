@@ -10,7 +10,7 @@
 
 <% @profils.each do |profil| %>
   <tr>
-    <td><%= profil.nom %></td>
+    <td><%= profil.name %></td>
     <td><%= link_to 'Show', profil %></td>
     <td><%= link_to 'Edit', edit_profil_path(profil) %></td>
     <td><%= link_to 'Destroy', profil, confirm: 'Are you sure?', method: :delete %></td>
@@ -19,5 +19,14 @@
 </table>
 
 <br />
-
+<table>
+<% render_csv.each do |line| %>
+<tr>
+  <% line.each do |td| %>
+  <td style="color :black;"><%= td %></td>
+  <% end %>
+  
+</tr>
+<% end %>
+</table>
 <%= link_to 'New Profil', new_profil_path %>

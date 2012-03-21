@@ -129,6 +129,13 @@ RailsAdmin.config do |config|
     config.actions do
       # root actions
       dashboard                     # mandatory
+      root :data_mining do
+        controller do 
+          Proc.new do
+            redirect_to "/profils"
+          end
+        end 
+      end
       # collection actions 
       index                         # mandatory
       new

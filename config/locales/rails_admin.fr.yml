@@ -259,16 +259,14 @@ fr:
       item: "Objet"
       message: "Message"
     actions:
-      statistique:
-        menu: "Statistiques"
-      pdf:
-        title: "Export PDF"
-        breadcrumb: "PDF"
-        menu: "PDF"
       dashboard:
         title: "Administration"
         menu: "Administration"
         breadcrumb: "Administration"
+      data_mining:
+        title: "Data Mining"
+        menu: "Data Mining"
+        breadcrumb: "Data Mining"
       index:
         title: "Listing des %{model_label_plural}"
         menu: "Liste"

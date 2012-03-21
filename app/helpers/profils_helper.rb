@@ -96,7 +96,7 @@ module ProfilsHelper
       lines << [profil.name,
               profil.gender? ? profil.gender : "none",
               profil.age,
-              profil.school.presence ? profil.school.name : "none",
+              profil.school.presence ? profil.school.schooltype : "none",
               profil.classroom? ? profil.classroom : "none",
               profil.redoublement,
               profil.addresses.presence ? profil.addresses.first.zip.zipcode : "none",

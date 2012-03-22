@@ -151,6 +151,9 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     remotipart (1.0.2)
+    rserve-client (0.3.0)
+    rserve-simpler (0.0.6)
+      rserve-client (~> 0.3.0)
     ruby-graphviz (0.9.21)
     ruby-rc4 (0.1.5)
     sass (3.1.15)
@@ -197,6 +200,7 @@ DEPENDENCIES
   rails (= 3.2.1)
   rails-erd
   rails_admin!
+  rserve-simpler
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer

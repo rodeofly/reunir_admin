@@ -1,0 +1,13 @@
+<h1>Tableau de datamining</h1>
+
+<table >
+<% @lines.each do |line| %>
+<tr>
+  <% line.each do |td| %>
+  <td style="color :black;padding:5px;"><%= td %></td>
+  <% end %>
+  
+</tr>
+<% end %>
+</table>
+<%= link_to 'New Profil', new_profil_path %><%= link_to 'CSV', '/datamining.csv' %>

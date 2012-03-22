@@ -18,15 +18,4 @@
 <% end %>
 </table>
 
-<br />
-<table>
-<% render_csv.each do |line| %>
-<tr>
-  <% line.each do |td| %>
-  <td style="color :black;"><%= td %></td>
-  <% end %>
-  
-</tr>
-<% end %>
-</table>
 <%= link_to 'New Profil', new_profil_path %>

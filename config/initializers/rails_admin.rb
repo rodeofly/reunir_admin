@@ -132,7 +132,7 @@ RailsAdmin.config do |config|
       root :data_mining do
         controller do 
           Proc.new do
-            redirect_to "/profils"
+            redirect_to "/datamining"
           end
         end 
       end

@@ -834,6 +834,7 @@ RailsAdmin.config do |config|
         field :first_name
         field :birthdate
         field :profession
+        field :intitule_profession
         field :groupe_parent
       end
       group :edit_tuteur_mesure do
@@ -867,6 +868,7 @@ RailsAdmin.config do |config|
         field :name
         field :birthdate
         field :profession
+        field :intitule_profession
         field :groupe_parent
       end
       group :show_tuteur_profils do

@@ -127,7 +127,7 @@ class ProfilsController < ApplicationController
       end
       @lines << [profil.name,
               profil.gender? ? profil.gender : "none",
-              profil.age,
+              !profil.age.blank? ? profil.age>12 ? "age>12" : "age<12" : "none",
               profil.school.presence ? profil.school.schooltype : "none",
               profil.classroom? ? profil.classroom : "none",
               profil.redoublement,

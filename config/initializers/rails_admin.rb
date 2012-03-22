@@ -681,7 +681,7 @@ RailsAdmin.config do |config|
   end
  
   config.model ProfilMesure do
-    navigation_label 'Mesures anthropométriques'
+    navigation_label 'Mesures Anthropométriques'
     object_label_method do
       :date_of_mesure
     end

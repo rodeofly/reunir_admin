@@ -51,7 +51,7 @@ begin
         :last_name => Forgery::Name.last_name,
         :tuteur_type => "Mère",
         :birthdate => rand(60.years).ago,
-        :profession => ['agriculteur exploitant (secteur primaire)' ,'artisan, commerçant ou chef d\'entreprise' ,'cadre ou profession intellectuelle supérieure' ,'profession intermédiaire' ,'employé' ,'ouvrier' ,'retraité' ,'sans activité professionnelle' ].sample,
+        :profession => ['agriculteur exploitant (secteur primaire)' ,'artisan, commerçant ou chef entrepreneur' ,'cadre ou profession intellectuelle supérieure' ,'profession intermédiaire' ,'employé' ,'ouvrier' ,'retraité' ,'sans activité professionnelle' ].sample,
         :groupe_parent => GroupeParent.all.sample
       end
       
@@ -115,7 +115,7 @@ begin
       Profil.all.each do |enfant|
         enfant.tuteurs << Tuteur.where(:tuteur_type => 'Père').sample
         enfant.tuteurs << Tuteur.where(:tuteur_type => 'Mère').sample
-        enfant.medecin << Tuteur.all.sample
+        enfant.medecins << Medecin.all.sample
         5.times do
           ProfilMesure.create! :date_of_mesure => rand(18.years).ago,
           :poids => Forgery(:basic).number(:at_least => 10, :at_most => 100),

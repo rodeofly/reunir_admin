@@ -1,6 +1,7 @@
 class CreateProfils < ActiveRecord::Migration
   def change
     create_table :profils do |t|
+      t.date :date_inclusion
       t.string :first_name
       t.string :last_name
       t.string :gender
@@ -17,10 +18,10 @@ class CreateProfils < ActiveRecord::Migration
       t.boolean :pma
       t.boolean :diabete_gestationnel
       t.boolean :allaitement
-      t.integer :duree_allaitement
+      t.float :duree_allaitement
       t.boolean :rebond_ponderal_precoce
       t.integer :age_obesite
-      t.boolean :facteur_declenchant
+      t.string :facteur_declenchant
       t.boolean :prise_en_charge_anterieure
       t.boolean :redoublement
       t.string :situation_maritale_des_parents

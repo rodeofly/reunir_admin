@@ -159,6 +159,7 @@ class ProfilsController < ApplicationController
               obesite_mere,
               ] 
     end
+    arules
     respond_to do |format|
       format.html # datamining.html.erb
       format.csv { render :csv => datamining_csv }
@@ -173,5 +174,20 @@ class ProfilsController < ApplicationController
         csv << line
       end
     end
+  end
+  
+  DataRow = Struct.new(:var1, :fac1, :res1)
+
+  def arules
+    r = Rserve::Simpler.new
+    structs = [
+      DataRow.new(1,3,4),
+      DataRow.new(2,4,5),
+      DataRow.new(3,5,6),
+      DataRow.new(4,6,7)
+    ]
+    datafr = Rserve::DataFrame.from_structs(structs)    
+   
+     
   end
 end

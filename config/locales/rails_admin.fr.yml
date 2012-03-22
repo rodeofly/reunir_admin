@@ -32,8 +32,8 @@ fr:
         one:  "téléphone"
         other: "téléphones"
       profil:
-        one: patient
-        other: patients
+        one: enfant
+        other: enfants
       profil_mesure:
         one: "mesures enfant"
         other: "mesures enfants"

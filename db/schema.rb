@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322122050) do
+ActiveRecord::Schema.define(:version => 20120322124607) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type"
@@ -185,10 +185,10 @@ ActiveRecord::Schema.define(:version => 20120322122050) do
     t.boolean  "pma"
     t.boolean  "diabete_gestationnel"
     t.boolean  "allaitement"
-    t.integer  "duree_allaitement"
+    t.float    "duree_allaitement"
     t.boolean  "rebond_ponderal_precoce"
     t.integer  "age_obesite"
-    t.boolean  "facteur_declenchant"
+    t.string   "facteur_declenchant"
     t.boolean  "prise_en_charge_anterieure"
     t.boolean  "redoublement"
     t.string   "situation_maritale_des_parents"
@@ -289,8 +289,9 @@ ActiveRecord::Schema.define(:version => 20120322122050) do
     t.date     "birthdate"
     t.string   "profession"
     t.integer  "groupe_parent_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "intitule_profession"
   end
 
   create_table "users", :force => true do |t|

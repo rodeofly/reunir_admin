@@ -45,6 +45,10 @@ class Profil < ActiveRecord::Base
     ['Petite Section', 'Moyenne Section', 'Grande Section', 'CP', 'CE1', 'CE2', 'CM1', 'CM2', '6ème', '5ème', '4ème', '3ème', '2nde', '1ère', 'Terminale']
   end
   
+  def facteur_declenchant_enum
+    ['Déménagement', 'Naissance', "Décés"]
+  end
+  
   def situation_maritale_des_parents_enum
     ['Mariés', 'Pacsé', 'En concubinage', 'Séparé', 'Isolé', 'Veuf', 'Famille recomposée']
   end
@@ -108,10 +112,6 @@ class Profil < ActiveRecord::Base
   
   def diabete_gestationnel?
     self.diabete_gestationnel.blank? ? "" : self.diabete_gestationnel ? "oui" : "non"
-  end
-  
-  def facteur_declenchant?
-    self.facteur_declenchant.blank? ? "" : self.facteur_declenchant ? "oui" : "non"
   end
   
   def rebond_ponderal_precoce?
@@ -198,7 +198,7 @@ class Profil < ActiveRecord::Base
     info_temp = ""
     info_temp += !self.age_obesite.blank? ? "Age de début de l'obésité : " + self.age_obesite.to_s + " ans\n" : ""
     info_temp += !self.rebond_ponderal_precoce.blank? ? "Rebond pondéral précoce : " + self.rebond_ponderal_precoce? + "\n" : ""
-    info_temp += !self.facteur_declenchant.blank? ? "Facteur déclenchant : " + self.facteur_declenchant? + "\n" : ""
+    info_temp += !self.facteur_declenchant.blank? ? "Facteur déclenchant : " + self.facteur_declenchant + "\n" : ""
     info_temp += !self.prise_en_charge_anterieure.blank? ? "Prise en charge antérieure : " + self.prise_en_charge_anterieure? + "\n" : ""
   end
   

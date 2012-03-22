@@ -25,7 +25,9 @@ ReunirAdmin::Application.routes.draw do
 
   resources :categories
 
-  resources :profils  
+  resources :profils
+  match '/datamining' => 'profils#datamining'
+  match '/datamining.:format' => 'profils#datamining'
   
   root :to => "home#index"
 

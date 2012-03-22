@@ -411,6 +411,7 @@ RailsAdmin.config do |config|
       group :edit_profil_identity do
         label "Informations de base"
         help "Fiche identité"
+        field :date_inclusion
         field :last_name
         field :first_name
         field :gender
@@ -515,7 +516,7 @@ RailsAdmin.config do |config|
           orderable true
         end
       end    
-      group :show_profil_bilans do
+      group :edit_profil_bilans do
         active false
         label "Bilan sanguin"
         help "Biochimie sanguine (Glycémie, Tryglycérides, Choléstérol, HDL, LDL, T4L, TSH)"
@@ -552,14 +553,13 @@ RailsAdmin.config do |config|
       field :first_name
       field :user
       field :groupe_enfant
-      field :created_at do
-        label "Inscrit le"
-      end
+      field :created_at
     end  
     show do
       group :show_profil_identity do
         label "Informations de base"
         help "Fiche identité"
+        field :date_inclusion
         field :name
         field :gender
         field :birthdate

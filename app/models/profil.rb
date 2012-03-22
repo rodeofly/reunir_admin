@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class Profil < ActiveRecord::Base  
+class Profil < ActiveRecord::Base 
   has_and_belongs_to_many :seance_enfants
 
   has_paper_trail

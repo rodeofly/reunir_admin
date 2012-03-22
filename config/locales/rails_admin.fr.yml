@@ -90,8 +90,10 @@ fr:
         email_type : "Type"
       groupe_enfant:
         name: "Nom"
+        profils: "Enfants"
       groupe_parent:
         name: "Nom"
+        tuteurs: "Parents"
       medecin:
         title: "Titre"
         first_name: "Prénom"

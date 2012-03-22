@@ -1,4 +1,4 @@
-<h1>Tableau de datamining</h1>
+<h1>Tableau de datamining[<%= link_to 'CSV', '/datamining.csv' %>]</h1>
 
 <table >
 <% @lines.each do |line| %>
@@ -10,4 +10,4 @@
 </tr>
 <% end %>
 </table>
-<%= link_to 'New Profil', new_profil_path %><%= link_to 'CSV', '/datamining.csv' %>
+<%= link_to 'New Profil', new_profil_path %>

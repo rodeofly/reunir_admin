@@ -259,7 +259,7 @@ RailsAdmin.config do |config|
   end
  
   config.model GroupeEnfant do
-    navigation_label 'Paramètres'
+    navigation_label 'Groupes Enfants'
     list do
       field :name
       field :nombre_de_profils
@@ -272,7 +272,7 @@ RailsAdmin.config do |config|
   end
   
   config.model GroupeParent do
-    navigation_label 'Paramètres'
+    navigation_label 'Groupes Parents'
     list do
       field :name
       field :nombre_de_tuteurs
@@ -681,7 +681,7 @@ RailsAdmin.config do |config|
   end
  
   config.model ProfilMesure do
-    navigation_label 'Mesures Anthropométriques'
+    navigation_label 'Mesures anthropométriques'
     object_label_method do
       :date_of_mesure
     end
@@ -754,7 +754,7 @@ RailsAdmin.config do |config|
   end
   
   config.model SeanceEnfant do
-    navigation_label 'Éducation thérapeutique'
+    navigation_label 'Groupes Enfants'
     edit do
       field :date_of_seance
       field :groupe_enfant
@@ -785,7 +785,7 @@ RailsAdmin.config do |config|
   end
    
   config.model SeanceParent do
-    navigation_label 'Éducation thérapeutique'
+    navigation_label 'Groupes Parents'
     edit do
       field :date_of_seance
       field :groupe_parent
@@ -900,7 +900,7 @@ RailsAdmin.config do |config|
   end
    
   config.model TuteurMesure do
-    navigation_label 'Polymorphics'
+    navigation_label 'Mesures Anthropométriques'
     object_label_method do
       :date_of_mesure
     end

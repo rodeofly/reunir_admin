@@ -41,6 +41,10 @@ class Profil < ActiveRecord::Base
   validates_presence_of :first_name
   validates_presence_of :last_name
   
+  def duree_allaitement_enum
+    ['Aucun', 'De 0 à 1 mois', 'De 1 à 3 mois', 'De 3 à 6 mois', 'De 6 mois à 1 an', 'Plus de 1 an']
+  end
+  
   def classroom_enum
     ['Petite Section', 'Moyenne Section', 'Grande Section', 'CP', 'CE1', 'CE2', 'CM1', 'CM2', '6ème', '5ème', '4ème', '3ème', '2nde', '1ère', 'Terminale']
   end
@@ -107,7 +111,7 @@ class Profil < ActiveRecord::Base
   end
   
   def allaitement?
-    self.duree_allaitement.blank? ? "" : self.duree_allaitement!="Aucun" ? true : false : false
+    self.duree_allaitement.blank? ? false : self.duree_allaitement=="Aucun" ? false : true
   end
   
   def diabete_gestationnel?

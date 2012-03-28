@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322124607) do
+ActiveRecord::Schema.define(:version => 20120328043827) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address_type"
@@ -169,6 +169,7 @@ ActiveRecord::Schema.define(:version => 20120322124607) do
   end
 
   create_table "profils", :force => true do |t|
+    t.date     "date_inclusion"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "gender"
@@ -184,8 +185,7 @@ ActiveRecord::Schema.define(:version => 20120322124607) do
     t.boolean  "rciu"
     t.boolean  "pma"
     t.boolean  "diabete_gestationnel"
-    t.boolean  "allaitement"
-    t.float    "duree_allaitement"
+    t.string   "duree_allaitement"
     t.boolean  "rebond_ponderal_precoce"
     t.integer  "age_obesite"
     t.string   "facteur_declenchant"
@@ -206,7 +206,6 @@ ActiveRecord::Schema.define(:version => 20120322124607) do
     t.string   "antiepileptique"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.date     "date_inclusion"
   end
 
   create_table "profils_seance_enfants", :id => false, :force => true do |t|
@@ -288,10 +287,10 @@ ActiveRecord::Schema.define(:version => 20120322124607) do
     t.string   "last_name"
     t.date     "birthdate"
     t.string   "profession"
+    t.string   "intitule_profession"
     t.integer  "groupe_parent_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.string   "intitule_profession"
   end
 
   create_table "users", :force => true do |t|

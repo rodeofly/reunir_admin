@@ -46,7 +46,7 @@ class Profil < ActiveRecord::Base
   end
   
   def facteur_declenchant_enum
-    ['Déménagement', 'Naissance', "Décés"]
+    ['Aucun', 'Déménagement', 'Naissance', "Décés"]
   end
   
   def situation_maritale_des_parents_enum
@@ -107,7 +107,7 @@ class Profil < ActiveRecord::Base
   end
   
   def allaitement?
-    self.allaitement.blank? ? "" : self.allaitement ? "oui" : "non"
+    self.duree_allaitement.blank? ? "" : self.duree_allaitement!="Aucun" ? true : false : false
   end
   
   def diabete_gestationnel?
@@ -190,8 +190,7 @@ class Profil < ActiveRecord::Base
     info_temp += !self.rciu.blank? ? "Retard de croissance intra-uterin : " + self.rciu? + "\n" : ""
     info_temp += !self.pma.blank? ? "Procréation médicalement assistée : " + self.pma? + "\n" : ""
     info_temp += !self.diabete_gestationnel.blank? ? "Diabète gestationnel : " + self.diabete_gestationnel? + "\n" : ""
-    info_temp += !self.allaitement.blank? ? "Allaitement : " + self.allaitement? + "\n" : ""
-    info_temp += !self.duree_allaitement.blank? ? "Durée de l'allaitement : " + self.duree_allaitement.to_s + " mois\n" : ""
+    info_temp += !self.allaitement.blank? ? "Allaitement : " + self.duree_allaitement + "\n" : ""
   end
 
   def info_obesite_pp

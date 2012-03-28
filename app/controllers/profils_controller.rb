@@ -83,17 +83,19 @@ class ProfilsController < ApplicationController
     end
   end
   
-    # GET /profils/datamining
+  # GET /profils/datamining
   # GET /profils/datamining.csv
+ 
   def datamining
     @profils = Profil.all
     headers = [:nom, :genre, :age, :ecole, :classe, :redoublement, :code_postal, :educateur, :groupe, :situation_des_parents,
-              :enfant_unique, :fratrie_en_surpoids, :effectif_foyer, :logement, :television, :ordinateur, :internet,
+              :enfant_unique,:facteur_declenchant, :fratrie_en_surpoids, :effectif_foyer, :logement, :television, :ordinateur, :internet,
               :corticoide, :antihistaminique, :antiepileptique, :antecedent_pere, :antecedent_mere, :antecedent_grands_parents,
-              :taille_de_naissance, :poids_de_naissance, :prematurite, :allaitement, :age_obesite, :profession_pere,
-              :profession_mere, :obesite_pere, :obesite_mere,
+              :taille_de_naissance, :poids_de_naissance, :prematurite, :duree_allaitement, :age_obesite, :profession_pere,
+              :profession_mere, :obesite_pere, :obesite_mere
               ]
     @lines= [headers]
+    
     @profils = Profil.all
     @profils.each do |profil|
       antecedent_pere = []
@@ -127,31 +129,32 @@ class ProfilsController < ApplicationController
       end
       @lines << [profil.name,
               profil.gender? ? profil.gender : "none",
-              !profil.age.blank? ? profil.age>12 ? "age>12" : "age<12" : "none",
+              !profil.age.blank? ? profil.age>12 ? "X>12" : "X<12" : "none",
               profil.school.presence ? profil.school.schooltype : "none",
               profil.classroom? ? profil.classroom : "none",
-              profil.redoublement,
+              profil.redoublement ? "oui" : "non",
               profil.addresses.presence ? profil.addresses.first.zip.zipcode : "none",
               profil.user.presence ? profil.user.name : "none",
               profil.groupe_enfant.presence ? profil.groupe_enfant.name : "none",
               profil.situation_maritale_des_parents? ? profil.situation_maritale_des_parents : "none",
-              !profil.fratrie? ? "enfant_unique" : "none",
-              profil.fratrie_en_surpoids ? "fratrie_en_surpoids" : "none",
-              profil.habitant_du_foyer? ? profil.habitant_du_foyer>4 ? "Foyer>4" : "Foyer<=4" : "none",
+              !profil.fratrie? ? "oui" : "non",
+              profil.facteur_declenchant? ? profil.facteur_declenchant : "none",
+              profil.fratrie_en_surpoids? ? "Oui" : "Non",
+              profil.habitant_du_foyer? ? profil.habitant_du_foyer>4 ? "X>4" : "X<=4" : "none",
               profil.type_de_logement? ? profil.type_de_logement : "none",
-              profil.television? ? profil.television>2 ? "Télé>2" : "Télé<=2" : "none",
-              profil.ordinateur? ? profil.television>2 ? "Ordi>2" : "Ordi<=2" : "none",
-              profil.internet? ? "Internet" : "none",
+              profil.television? ? profil.television>2 ? "X>2" : "X<=2" : "none",
+              profil.ordinateur? ? profil.television>2 ? "X>2" : "X<=2" : "none",
+              profil.internet? ? "Connecté" : "Non Connecté",
               profil.corticoide? ? profil.corticoide : "none",
               profil.antihistaminique? ? profil.antihistaminique : "none",
               profil.antiepileptique? ? profil.antiepileptique : "none",
               !antecedent_pere.blank? ? antecedent_pere.join("/") : "none" ,
               !antecedent_mere.blank? ? antecedent_mere.join("/") : "none" ,
               !antecedent_grands_parents.blank? ? antecedent_grands_parents.join("/") : "none" ,
-              profil.taille_naissance? ? profil.taille_naissance<46 ? "taille_naissance<46cm" : profil.taille_naissance>54 ? "taille_naissance>54cm" : "46cm>taille_naissance>54cm" : "none",
-              profil.poids_naissance? ? profil.poids_naissance<2.6 ? "poids_de_naissance<2.6Kg" : profil.poids_naissance>4.3 ? "poids_de_naissance>4.3Kg" : "2.6Kg>poids_de_naissance>4.3Kg" : "none",
-              profil.terme_sa? ? profil.terme_sa<37 ? "prematurité" : "none" : "none",
-              profil.allaitement? ? "Allaitement" : "none",
+              profil.taille_naissance? ? profil.taille_naissance<46 ? "X<46cm" : profil.taille_naissance>54 ? "X>54cm" : "46cm>X>54cm" : "none",
+              profil.poids_naissance? ? profil.poids_naissance<2.6 ? "X<2.6Kg" : profil.poids_naissance>4.3 ? "X>4.3Kg" : "2.6Kg>X>4.3Kg" : "none",
+              profil.prematurite? ? "oui" : "non",
+              profil.duree_allaitement? ? profil.duree_allaitement : "non",
               profil.age_obesite? ? profil.age_obesite : "none",
               profession_pere,
               profession_mere,
@@ -159,10 +162,11 @@ class ProfilsController < ApplicationController
               obesite_mere,
               ] 
     end
-    arules
+    csv_data = datamining_csv
+    arules(csv_data)
     respond_to do |format|
       format.html # datamining.html.erb
-      format.csv { render :csv => datamining_csv }
+      format.csv { render :csv => csv_data }
       format.json { render json: @profils }
     end
   end
@@ -176,18 +180,53 @@ class ProfilsController < ApplicationController
     end
   end
   
-  DataRow = Struct.new(:var1, :fac1, :res1)
-
-  def arules
+  def arules(csv_data,supp=0.25,conf=0.75,minlen=2,maxlen=10)
+    CSV.open("tmp/csv/csv_file.csv", "wb") do |csv|
+      CSV.parse(csv_data,:col_sep => "\t") do |csv_line|
+          csv << csv_line
+      end
+    end
+    hash = {}
+    table = CSV.parse(csv_data, col_sep: "\t")
+    table.transpose.each do |line|
+      hash[line[0]] = line.slice(1..-1)
+    end 
     r = Rserve::Simpler.new
-    structs = [
-      DataRow.new(1,3,4),
-      DataRow.new(2,4,5),
-      DataRow.new(3,5,6),
-      DataRow.new(4,6,7)
-    ]
-    datafr = Rserve::DataFrame.from_structs(structs)    
-   
-     
+    duffy = hash.to_dataframe
+    # convert with hash.to_dataframe or Rserve::DataFrame.new(hash)
+    r.command('support' => supp, 'confiance' => conf, 'minlength' => minlen, 'maxlength' => maxlen) do
+      %Q{
+        # supression de l'ensemble du Workspace
+        rm(list=ls())
+        
+        #chargement de la library arules
+        library(arules)
+        
+        #Set working directory
+        setwd("/home/florian/workspace/reunir_admin/tmp/csv/")
+        #load file as table
+        result <- read.table(file="csv_file.csv",header=T,dec=".",sep=",")
+        summary(result)
+
+        #transformer les données attributs-variables
+        #en données transactionnelles
+        result.trans <- as(result,"transactions")
+        summary(result.trans)
+        
+        #extraction des règles
+        result.regles <- apriori(result.trans,parameter=list(supp=0.25,conf=0.75,minlen=2,maxlen=10,target="rules"))
+        summary(result.regles)
+        
+        #afficher les 10 premières règles trouvées
+        inspect(result.regles[1:10])
+        
+        #afficher les 5 règles avec le lift le + élevé
+        regles.triees <- sort(result.regles,by="lift")
+        inspect(regles.triees[1:5])
+      }   
+    end
+    puts "#############################################"
+    puts "#############################################"
+
   end
 end

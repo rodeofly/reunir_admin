@@ -17,8 +17,7 @@ class CreateProfils < ActiveRecord::Migration
       t.boolean :rciu
       t.boolean :pma
       t.boolean :diabete_gestationnel
-      t.boolean :allaitement
-      t.float :duree_allaitement
+      t.string :duree_allaitement
       t.boolean :rebond_ponderal_precoce
       t.integer :age_obesite
       t.string :facteur_declenchant

@@ -21,7 +21,7 @@ RailsAdmin.config do |config|
   # config.audit_with :paper_trail, User
   
   # Set the admin name here (optional second array element will appear in a beautiful RailsAdmin red ©)
-  config.main_app_name = ['Reunir Admin', 'Admin']
+  config.main_app_name = ['Reunir', 'Admin']
   # or for a dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
@@ -486,10 +486,7 @@ RailsAdmin.config do |config|
         field :terme_sa do
           help "en semaines d'aménorrhée"
         end
-        field :allaitement
-        field :duree_allaitement do
-          help "en mois"
-        end
+        field :duree_allaitement
         field :rciu do
           help "Retard de croissance intra-utérin"
         end

@@ -86,6 +86,9 @@ fr:
       comment:
         comment_type: "Type"
         comment: "Commentaire"
+      diagnostic:
+        date_du_prochain_diagnostic: "Date du prochain rendez-vous"
+        diagnostic_type: "Type de diagnostic"
       email:
         email_type : "Type"
       groupe_enfant:
@@ -111,19 +114,23 @@ fr:
         comments: "Commentaires"
       profil:
         addresses: "Adresses"
+        age_obesite: "Age de l'apparition de l'obésité"
         birthdate: "Date de naissance"
         comments: "Notes"
         classroom: "Classe"
         emails: "Emails"
         first_name: "Prénom"
+        facteur_declenchant: "Facteur déclenchant"
         gender: "Genre"
         groupe_enfant: "Groupe de l'enfant"     
         last_name: "Nom"
         phones: "Téléphones"
         profil_mesures: "Mesures de l'enfant"
+        rebond_ponderal_precoce: "Rebond pondéral précoce"
         medecin: "Médecin"
         name: "Nom"
         ordinateur: "Nombre d'ordinateur"
+        prise_en_charge_anterieure: "Prise en charge antérieure"
         school: "École"
         tuteurs: "Responsables légaux"
         television: "Nombre de télévision"

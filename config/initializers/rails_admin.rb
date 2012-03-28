@@ -236,6 +236,23 @@ RailsAdmin.config do |config|
     configure :diagnosticable do
       visible false
     end
+    edit do
+      field :date_du_diagnostic
+      field :diagnostic_type
+      field :anomalie_activite_physique
+      field :anomalie_temps_ecran
+      field :anomalie_grignotage
+      field :anomalie_consommation_soda
+      field :anomalie_alimentation_trop_riche
+      field :anomalie_alimentation_fruits_legumes
+      field :anomalie_composition_repas
+      field :anomalie_contexte_repas
+      field :anomalie_repartition_repas
+      field :motivation_enfant
+      field :motivation_famille
+      field :date_du_prochain_diagnostic
+      field :comments
+    end
   end
   
   config.model Email do
@@ -519,18 +536,18 @@ RailsAdmin.config do |config|
         help "Biochimie sanguine (Glycémie, Tryglycérides, Choléstérol, HDL, LDL, T4L, TSH)"
         field :bilan_sanguins
       end
-      group :edit_profil_objectifs do
-        active false
-        label "Objectifs"
-        help "Définition des objectifs"
-        field :objectifs
-      end
       group :edit_profil_diagnostics do
         active false
         label "Diagnostics"
         help "Diagnostics des entretiens thérapeutiques pédiatriques individuels"
         field :diagnostics
       end
+   group :edit_profil_objectifs do
+      active false
+      label "Objectifs"
+      help "Définition des objectifs"
+      field :objectifs
+    end
     group :edit_profil_complement do
         active false
         label "Complément d'information"

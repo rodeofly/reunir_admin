@@ -194,7 +194,7 @@ class Profil < ActiveRecord::Base
     info_temp += !self.rciu.blank? ? "Retard de croissance intra-uterin : " + self.rciu? + "\n" : ""
     info_temp += !self.pma.blank? ? "Procréation médicalement assistée : " + self.pma? + "\n" : ""
     info_temp += !self.diabete_gestationnel.blank? ? "Diabète gestationnel : " + self.diabete_gestationnel? + "\n" : ""
-    info_temp += !self.allaitement.blank? ? "Allaitement : " + self.duree_allaitement + "\n" : ""
+    info_temp += !self.allaitement? ? "Allaitement : " + self.duree_allaitement + "\n" : ""
   end
 
   def info_obesite_pp

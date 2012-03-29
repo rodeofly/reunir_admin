@@ -3,7 +3,7 @@ class Antecedent < ActiveRecord::Base
 belongs_to :antecedentable, :polymorphic => true
     
   def antecedent_type_enum
-    ['Diabète', 'Hyper choléstérol', 'Hypertension', 'Maladies cardiovascilulaire']
+    ['Diabète', 'Hyper choléstérol', 'Hypertension', 'Maladie cardiovasculaire']
   end
   
   def parent_enum
